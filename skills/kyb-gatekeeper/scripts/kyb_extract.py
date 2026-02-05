@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 import json
+import os
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
-ARTICLES_PATH = ROOT / "docs" / "articles_inc.txt"
-DOSSIER_PATH = ROOT / "company_dossier.json"
+ARTICLES_PATH = Path(os.environ.get("KYB_ARTICLES_PATH", ROOT / "docs" / "articles_inc.txt"))
+DOSSIER_PATH = Path(os.environ.get("KYB_DOSSIER_PATH", ROOT / "company_dossier.json"))
 
 ENTITY_NAME_RE = re.compile(r"\bENTITY\s+NAME\b\s*[:\-]\s*(.+)", re.IGNORECASE)
 STATE_RE = re.compile(r"\bSTATE\s+OF\s+REGISTRATION\b\s*[:\-]\s*(.+)", re.IGNORECASE)
@@ -15,6 +17,15 @@ PCT_RE = re.compile(r"(\d+(?:\.\d+)?)\s*%")
 
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
+
+
+def read_articles_text() -> str:
+    if os.environ.get("KYB_USE_STDIN") == "1":
+        data = sys.stdin.buffer.read()
+        if not data:
+            return ""
+        return data.decode("utf-8", errors="replace")
+    return read_text(ARTICLES_PATH)
 
 
 def load_json(path: Path) -> dict:
@@ -124,7 +135,7 @@ def update_field(dossier: dict, key: str, value, confidence: str, existing_confi
 
 
 def main():
-    articles_text = read_text(ARTICLES_PATH)
+    articles_text = read_articles_text()
     dossier = load_json(DOSSIER_PATH)
 
     entity_name, entity_conf = extract_entity_name(articles_text)

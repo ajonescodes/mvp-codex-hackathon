@@ -1,0 +1,282 @@
+:root {
+  color-scheme: light;
+  font-family: "Space Grotesk", system-ui, sans-serif;
+  background: #f4f2ee;
+  color: #151515;
+  --ink: #151515;
+  --muted: #5b5852;
+  --surface: #ffffff;
+  --surface-2: #f8f4ef;
+  --accent: #f18f01;
+  --accent-dark: #cb6d00;
+  --line: #e3ded6;
+  --shadow: 0 16px 40px rgba(16, 15, 15, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top left, #fff5e6, #f4f2ee 45%, #efe8e0 100%);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 24px 72px;
+}
+
+.hero {
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 3vw, 3.4rem);
+  margin: 0 0 12px;
+}
+
+.subhead {
+  max-width: 520px;
+  font-size: 1.05rem;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  min-width: 280px;
+}
+
+.hero-card {
+  max-width: 380px;
+}
+
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+.btn-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  background: var(--accent);
+  color: #1c0d00;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(241, 143, 1, 0.25);
+}
+
+.btn.secondary {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+.hint {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 320px;
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.upload-form input[type="file"] {
+  border: 1px dashed var(--line);
+  padding: 12px;
+  border-radius: 12px;
+  background: #fffdfa;
+}
+
+.log-output {
+  background: #f7f1e8;
+  border: 1px solid #eddcc4;
+  border-radius: 12px;
+  padding: 12px;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
+  color: #6a3c00;
+  max-height: 160px;
+  overflow: auto;
+}
+
+.server-json {
+  display: grid;
+  gap: 8px;
+}
+
+.panel-head h2 {
+  margin: 0 0 6px;
+  font-size: 1.2rem;
+}
+
+.panel-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.input-area {
+  width: 100%;
+  flex: 1;
+  resize: vertical;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  padding: 12px;
+  font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9rem;
+  background: #fffdfa;
+}
+
+.input-area.mono {
+  background: #fefaf5;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.summary p {
+  margin: 6px 0 0;
+  font-weight: 600;
+}
+
+.ok {
+  color: #0b6b3a;
+}
+
+.warn {
+  color: #b24a00;
+}
+
+.ubo-list {
+  display: grid;
+  gap: 12px;
+}
+
+.ubo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 12px;
+  background: #fff7ea;
+  border: 1px solid #f6ddbb;
+}
+
+.ubo-name {
+  margin: 0;
+  font-weight: 600;
+}
+
+.ubo-role {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.ubo-pct {
+  font-weight: 700;
+  color: #8e3c00;
+}
+
+.empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.flags {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.flag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.flag {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffe5da;
+  color: #8b2f00;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.json-output {
+  background: #11100f;
+  color: #f7f2eb;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 0.85rem;
+  overflow: auto;
+  min-height: 240px;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    flex-direction: column;
+  }
+}
