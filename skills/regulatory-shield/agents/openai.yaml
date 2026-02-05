@@ -1,0 +1,4 @@
+interface:
+  display_name: "Regulatory Shield"
+  short_description: "Sanctions and industry scrubbing"
+  default_prompt: "Use $regulatory-shield to screen UBOs and industry against sanctions and prohibited lists, updating company_dossier.json."
