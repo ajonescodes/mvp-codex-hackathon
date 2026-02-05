@@ -1,0 +1,4 @@
+interface:
+  display_name: "Credit Underwriter"
+  short_description: "Financial spreading & credit decision"
+  default_prompt: "Use $credit-underwriter to parse financials, compute EBITDA/DSCR, update company_dossier.json, and write Credit_Memo.md."
