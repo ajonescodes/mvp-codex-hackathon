@@ -368,15 +368,6 @@ h1 {
   place-items: center;
 }
 
-.step-dot span {
-  position: absolute;
-  top: 26px;
-  font-size: 0.75rem;
-  color: var(--muted);
-  white-space: nowrap;
-  transform: translateX(-50%);
-  left: 50%;
-}
 
 .step-1 {
   left: 5%;
@@ -400,7 +391,7 @@ h1 {
 
 .autopilot-text {
   position: relative;
-  min-height: 44px;
+  min-height: 28px;
   color: var(--muted);
   font-size: 0.95rem;
   overflow: hidden;

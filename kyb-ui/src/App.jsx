@@ -87,23 +87,19 @@ export default function App() {
           <div className="autopilot-line" aria-hidden="true">
             <span className="line-fill" />
             <div className="step-dot step-1">
-              <span>KYB</span>
             </div>
             <div className="step-dot step-2">
-              <span>Compliance</span>
             </div>
             <div className="step-dot step-3">
-              <span>Underwriting</span>
             </div>
             <div className="step-dot step-4">
-              <span>Growth</span>
             </div>
           </div>
           <div className="autopilot-text" aria-live="polite">
-            <span>Step 1: KYB Gatekeeper verifies entity and UBOs.</span>
-            <span>Step 2: Regulatory Shield screens sanctions and industries.</span>
-            <span>Step 3: Credit Underwriter computes EBITDA, DSCR, and decisioning.</span>
-            <span>Step 4: Relationship Sentinel surfaces cross-sell opportunities.</span>
+            <span>KYB Gatekeeper verifies entity and UBOs.</span>
+            <span>Regulatory Shield screens sanctions and prohibited industries.</span>
+            <span>Credit Underwriter computes EBITDA, DSCR, and decisioning.</span>
+            <span>Relationship Sentinel surfaces cross-sell opportunities.</span>
           </div>
         </section>
 
