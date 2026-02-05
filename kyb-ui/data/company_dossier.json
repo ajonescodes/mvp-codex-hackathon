@@ -1,16 +1,16 @@
 {
-  "entity_name": "Atlas Meridian Logistics LLC",
-  "state": "Delaware",
+  "entity_name": "Seabreeze Imports LLC",
+  "state": "Florida",
   "ubo_list": [
     {
-      "name": "John Smith",
+      "name": "Carla Mendes",
       "role": "CEO",
       "ownership_pct": 60
     },
     {
-      "name": "Maria Lopez",
+      "name": "Omar Idris",
       "role": "COO",
-      "ownership_pct": 40
+      "ownership_pct": 30
     }
   ],
   "kyb_status": "APPROVED",
@@ -22,13 +22,13 @@
     "status": "CLEAR"
   },
   "financials": {
-    "gross_revenue": 5000000,
-    "operating_expenses": 3600000,
-    "depreciation": 250000,
-    "annual_debt_service": 900000,
-    "proposed_loan_amount": 1500000,
-    "ebitda": 1650000,
-    "dscr": 1.8333333333333333
+    "gross_revenue": 6400000,
+    "operating_expenses": 4200000,
+    "depreciation": 300000,
+    "annual_debt_service": 950000,
+    "proposed_loan_amount": 2000000,
+    "ebitda": 2500000,
+    "dscr": 2.6315789473684212
   },
   "credit_decision": "APPROVE",
   "cross_sell_opportunities": [
@@ -54,6 +54,24 @@
       "signal": "LIQUIDITY_EVENT",
       "recommended_product": "Liquidity Management / Sweep Account",
       "trigger_transaction": "TX1005",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "FX1001",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "FX1002",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "FX1003",
       "confidence": "HIGH"
     }
   ]
