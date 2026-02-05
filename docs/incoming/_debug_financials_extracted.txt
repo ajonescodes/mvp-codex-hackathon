@@ -1,0 +1,459 @@
+Apex Logistics - Loan Underwriting Financial Package: 
+Hypothetical global logistics enterprise with primary operations in the U.S. and Europe: 
+
+Field: Value
+Prepared For: Business Loan Documentation Package
+Company: Apex Logistics
+Reporting Currency: USD ($000 unless noted)
+Reporting Cutoff: 2026-01-31
+Coverage: Historical 2023A-2025A and YTD 2026
+Company Size Profile: ~$100M annual revenue (2025A synthetic target)
+Source Note: Synthetic dataset for underwriting checklist demonstration
+Reference Source 1: https://www.census.gov/econ
+Reference Source 2: https://ec.europa.eu/eurostat
+Reference Source 3: https://fred.stlouisfed.org
+Model Assumptions: 
+Raw input drivers and source references: 
+
+Input: Value
+Tax Rate: 0.27
+U.S. Revenue Share: 0.62
+Europe Revenue Share: 0.38
+Avg Diesel Cost Index: 1
+Avg DSO: 48
+Avg DPO: 36
+Working Capital Buffer: 2050
+YTD End Date: 46053
+Profit & Loss Statement: 
+Historical and YTD performance (USD $000): 
+
+Line Item: 2023A
+
+Revenue: 
+Linehaul Revenue: 60137
+Warehousing Revenue: 15490
+Customs & Other Services: 7289
+Total Revenue: 
+
+Operating Costs: 
+Linehaul & Delivery Costs: 34624
+Fuel Costs: 8884
+Labor & Benefits: 11936
+Facility & Warehouse: 4419
+Technology & Communications: 1913
+General & Administrative: 3781
+Total Operating Costs: 
+EBITDA: 
+
+Non-Operating and Tax: 
+Depreciation & Amortization: 2096
+Operating Income (EBIT): 
+Interest Expense: 820
+Other Income/(Expense): 114
+Pre-Tax Income: 
+Income Tax Expense: 
+Net Income: 
+Cash Flow Statement: 
+Historical and YTD cash movement (USD $000): 
+
+Line Item: 2023A
+
+Operating Activities: 
+Net Income: 
+Depreciation & Amortization: 
+Change in Accounts Receivable: -683
+Change in Inventory: -137
+Change in Accounts Payable: 547
+Other Working Capital Changes: 182
+Net Cash from Operating Activities: 
+
+Investing Activities: 
+Capital Expenditures: -4191
+Acquisitions: -683
+Asset Sales: 273
+Net Cash from Investing Activities: 
+
+Financing Activities: 
+Debt Proceeds: 2187
+Debt Repayments: -1230
+Lease Principal Payments: -866
+Dividends Paid: -638
+Net Cash from Financing Activities: 
+Net Change in Cash: 
+Beginning Cash Balance: 7289
+Ending Cash Balance: 
+Balance Sheet: 
+Historical and YTD position (USD $000): 
+
+Line Item: 2023A
+
+Assets: 
+Cash & Equivalents: 
+Accounts Receivable: 9339
+Inventory: 1868
+Prepaid Expenses: 820
+Total Current Assets: 
+Property, Plant & Equipment (Net): 23235
+Right-of-Use Assets: 5103
+Intangible Assets: 3462
+Other Non-Current Assets: 1321
+Total Assets: 
+
+Liabilities & Equity: 
+Accounts Payable: 6925
+Accrued Expenses: 4465
+Current Portion of Long-Term Debt: 1640
+Operating Lease Liabilities (Current): 957
+Total Current Liabilities: 
+Long-Term Debt: 10387
+Operating Lease Liabilities (Non-Current): 3964
+Deferred Tax Liabilities: 820
+Total Liabilities: 
+Common Stock: 4100
+Retained Earnings (Plug): 
+Accumulated OCI: -273
+Total Equity: 
+Total Liabilities & Equity: 
+Balance Check (should be 0): 
+Business Bank Statements (Last 12 Months): 
+Monthly statement summary across operating and payroll accounts (USD $000): 
+
+Statement Month End: Bank Name
+45716: JPMorgan Chase
+45716: Deutsche Bank
+45716: HSBC
+45747: JPMorgan Chase
+45747: Deutsche Bank
+45747: HSBC
+45777: JPMorgan Chase
+45777: Deutsche Bank
+45777: HSBC
+45808: JPMorgan Chase
+45808: Deutsche Bank
+45808: HSBC
+45838: JPMorgan Chase
+45838: Deutsche Bank
+45838: HSBC
+45869: JPMorgan Chase
+45869: Deutsche Bank
+45869: HSBC
+45900: JPMorgan Chase
+45900: Deutsche Bank
+45900: HSBC
+45930: JPMorgan Chase
+45930: Deutsche Bank
+45930: HSBC
+45961: JPMorgan Chase
+45961: Deutsche Bank
+45961: HSBC
+45991: JPMorgan Chase
+45991: Deutsche Bank
+45991: HSBC
+46022: JPMorgan Chase
+46022: Deutsche Bank
+46022: HSBC
+46053: JPMorgan Chase
+46053: Deutsche Bank
+46053: HSBC
+Accounts Receivable Aging (Current): 
+As of 2026-01-31 (USD $000): 
+
+Customer: Region
+Orion Retail Group: US
+NordPort Manufacturing: EU
+Atlas Pharma: US
+BlueRock Foods: EU
+Summit Auto Parts: US
+Horizon Homeware: EU
+Aquila Electronics: US
+NorthSea Equipment: EU
+Delta Medical: US
+Titan Consumer: EU
+Pioneer Industrial: US
+Vega Textiles: EU
+Granite Energy: US
+Lumen Beauty: EU
+Peak Beverages: US
+Total A/R: 
+Accounts Payable Aging (Current): 
+As of 2026-01-31 (USD $000): 
+
+Vendor: Region
+SwiftFuel Energy: US
+EuroFleet Leasing: EU
+Harbor Rail Systems: US
+Mercury Packaging: EU
+Peak Staffing: US
+Danube Logistics Parks: EU
+TriState Tires: US
+Rhein Tech Systems: EU
+Atlas Insurance: US
+Nordic Warehousing: EU
+Metro Utilities: US
+Baltic Freight Services: EU
+Sunline Telecom: US
+Central Customs Brokers: EU
+BlueRoute Maintenance: US
+Total A/P: 
+Debt Schedule: 
+Outstanding obligations, maturities, and pricing (USD $000): 
+
+Facility: Lender
+Term Loan A: JPMorgan Chase
+Term Loan B: BNP Paribas
+Revolving Credit: Bank of America
+Equipment Lease: Deutsche Leasing
+Warehouse Lease Liability: CBRE Finance
+Fleet Financing: Wells Fargo
+Total Debt / Lease Exposure: 
+Weighted Average Interest Rate: 
+Trial Balance: 
+As of 2026-01-31 (USD $000): 
+
+Account #: Account Name
+1000: Cash & Equivalents
+1100: Accounts Receivable
+1200: Inventory
+1300: Prepaid Expenses
+1500: Property, Plant & Equipment (Net)
+1510: Right-of-Use Assets
+1600: Intangible Assets
+1700: Other Non-Current Assets
+2000: Accounts Payable
+2100: Accrued Expenses
+2200: Current Portion LT Debt
+2210: Current Lease Liabilities
+2300: Long-Term Debt
+2310: Non-Current Lease Liabilities
+2400: Deferred Tax Liabilities
+3000: Common Stock
+3100: Retained Earnings
+3200: Accumulated OCI
+4000: Linehaul Revenue
+4010: Warehousing Revenue
+4020: Customs & Other Revenue
+5000: Linehaul & Delivery Costs
+5010: Fuel Costs
+5020: Labor & Benefits
+5030: Facility & Warehouse
+5040: Technology & Communications
+5050: General & Administrative
+5100: Depreciation & Amortization
+5200: Interest Expense
+5300: Other Income
+5400: Income Tax Expense
+Total
+Balance Check (should be 0)
+General Ledger Detail: 
+YTD journal detail through 2026-01-31 (USD $000): 
+
+Journal Date: Journal ID
+46024: J260001
+46024: J260001
+46025: J260002
+46025: J260002
+46026: J260003
+46026: J260003
+46027: J260004
+46027: J260004
+46028: J260005
+46028: J260005
+46029: J260006
+46029: J260006
+46030: J260007
+46030: J260007
+46031: J260008
+46031: J260008
+46032: J260009
+46032: J260009
+46033: J260010
+46033: J260010
+46034: J260011
+46034: J260011
+46035: J260012
+46035: J260012
+46036: J260013
+46036: J260013
+46037: J260014
+46037: J260014
+46038: J260015
+46038: J260015
+46039: J260016
+46039: J260016
+46040: J260017
+46040: J260017
+46041: J260018
+46041: J260018
+46042: J260019
+46042: J260019
+46043: J260020
+46043: J260020
+46044: J260021
+46044: J260021
+46045: J260022
+46045: J260022
+46046: J260023
+46046: J260023
+46047: J260024
+46047: J260024
+46048: J260025
+46048: J260025
+46049: J260026
+46049: J260026
+46050: J260027
+46050: J260027
+46051: J260028
+46051: J260028
+46052: J260029
+46052: J260029
+46053: J260030
+46053: J260030
+Totals
+Revenue Concentration Report: 
+Top customers and % of sales (USD $000): 
+
+Customer: Region
+Orion Retail Group: US
+NordPort Manufacturing: EU
+Atlas Pharma: US
+BlueRock Foods: EU
+Summit Auto Parts: US
+Horizon Homeware: EU
+Aquila Electronics: US
+NorthSea Equipment: EU
+Delta Medical: US
+Titan Consumer: EU
+Top-10 Total: 
+
+Top-10 concentration is a key underwriting KPI.: 
+Formulas link to total revenue in 'P&L' for consistency.: 
+Gross Margin Trend by Service Line: 
+Historical and YTD margin profile (USD $000): 
+
+Line Item: 2023A
+
+Revenue: 
+Linehaul Revenue: 
+Warehousing Revenue: 
+Customs & Other Revenue: 
+Total Revenue: 
+
+Gross Margin Assumptions: 
+Linehaul GM %: 0.185
+Warehousing GM %: 0.322
+Customs GM %: 0.575
+
+Derived Gross Profit: 
+Linehaul COGS: 
+Warehousing COGS: 
+Customs COGS: 
+Total Service COGS: 
+Gross Profit: 
+Gross Margin %: 
+Inventory Report & Turnover Metrics: 
+Inventory-based support schedules (USD $000): 
+
+Current Inventory Position (As of 2026-01-31): 
+Category: Units
+Packaging & Pallets: 8800
+Cross-Dock Spare Parts: 3200
+Fleet Maintenance Parts: 2400
+Safety & Consumables: 4300
+Returns Processing Stock: 1700
+Total Current Inventory: 
+
+Turnover Metrics by Period: 
+Metric: 2023A
+Beginning Inventory: 1750
+Ending Inventory: 
+Average Inventory: 
+Inventory-Linked COGS: 1225
+Inventory Turnover (x): 
+Days Inventory on Hand (DIO): 
+Capital Expenditure History and Plan: 
+Historical and forward capex profile (USD $000): 
+
+Category: 2023A
+Fleet Replacement: 1700
+Warehouse Automation: 740
+TMS / Data Platforms: 615
+Facility Upgrades: 705
+Sustainability (EV + Energy): 431
+Total Capex: 
+
+Capex Intensity Metrics: 
+Capex / Revenue: 
+Existing Borrowing Base Report: 
+Asset-based lending availability calculation (USD $000): 
+
+Component: Value
+
+Accounts Receivable Base: 
+Gross A/R (from aging): 
+Less: 90+ day balances: 
+Less: dilution / cross-age reserve: 220
+Net Eligible A/R: 
+A/R Advance Rate: 
+
+Inventory Base: 
+Inventory at Cost (current): 
+Less: ineligible inventory reserve: 
+Net Eligible Inventory: 
+Inventory Advance Rate: 
+
+Availability Summary: 
+Gross Borrowing Base: 
+Less: reserves / availability block: 350
+Net Borrowing Availability: 
+Less: Revolver Outstanding: 
+Excess Availability: 
+Financial Projections (24 Months): 
+Monthly forecast with assumptions (USD $000): 
+
+Assumptions: 
+Driver: Value
+Linehaul Monthly Growth: 0.008
+Warehousing Monthly Growth: 0.006
+Customs Monthly Growth: 0.007
+Blended Gross Margin: 0.238
+OpEx Ratio: 0.145
+D&A Ratio: 0.023
+Interest Ratio: 0.012
+Tax Rate: 0.27
+Capex Ratio: 0.026
+NWC Ratio: 0.118
+
+Monthly Projection: 
+Month: Linehaul Rev
+46054: 
+46082: 
+46113: 
+46143: 
+46174: 
+46204: 
+46235: 
+46266: 
+46296: 
+46327: 
+46357: 
+46388: 
+46419: 
+46447: 
+46478: 
+46508: 
+46539: 
+46569: 
+46600: 
+46631: 
+46661: 
+46692: 
+46722: 
+46753: 
+
+
+Annual Summary: 
+Metric: 2026E
+Total Revenue: 
+EBITDA: 
+Net Income: 
+Ending Cash: 

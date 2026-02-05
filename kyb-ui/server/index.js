@@ -36,7 +36,7 @@ const PROHIBITED_INDUSTRIES = {
   sanctioned_jurisdictions: ["sanctioned", "jurisdiction"]
 };
 
-const LIQUIDITY_KEYWORDS = ["investment", "vc", "venture", "private equity", "pe"];
+const LIQUIDITY_PATTERNS = [/\binvestment\b/i, /\bvc\b/i, /\bventure\b/i, /private equity/i, /\bpe\b/i];
 
 const stripBullets = (line) => line.replace(/^[\s\-*\u2022]+/, "").trim();
 
@@ -94,10 +94,11 @@ const sheetToText = (buffer) => {
     const rows = xlsx.utils.sheet_to_json(sheet, { header: 1, defval: "" });
     rows.forEach((row) => {
       if (!row || !row.length) return;
-      if (row.length >= 2 && row[0]) {
-        lines.push(`${row[0]}: ${row[1]}`);
-      } else {
-        lines.push(row.filter(Boolean).join(", "));
+      const cells = row.map((cell) => String(cell).trim()).filter((cell) => cell);
+      if (!cells.length) return;
+      lines.push(cells.join(" | "));
+      if (cells.length >= 2 && cells[0]) {
+        lines.push(`${cells[0]}: ${cells[1]}`);
       }
     });
   });
@@ -138,6 +139,14 @@ const extractEntityName = (text) => {
     const match = line.match(ENTITY_NAME_RE);
     if (match) return { value: match[1].trim(), confidence: "explicit" };
   }
+  const corporationName = text.match(/name of the corporation is\s+(.+?)(?:\.|\(|\n)/i);
+  if (corporationName?.[1]) {
+    return { value: corporationName[1].trim(), confidence: "inferred" };
+  }
+  const titleName = text.match(/articles of incorporation\s*\n\s*([^\n]+)/i);
+  if (titleName?.[1]) {
+    return { value: titleName[1].trim(), confidence: "inferred" };
+  }
   for (const line of text.split(/\r?\n/)) {
     const match = line.match(ENTITY_HINT_RE);
     if (match) return { value: match[1].trim(), confidence: "inferred" };
@@ -149,6 +158,10 @@ const extractState = (text) => {
   for (const line of text.split(/\r?\n/)) {
     const match = line.match(STATE_RE);
     if (match) return { value: match[1].trim(), confidence: "explicit" };
+  }
+  const stateOf = text.match(/\bstate of\s+([A-Za-z ]+)(?:\s*[-\n]|$)/i);
+  if (stateOf?.[1]) {
+    return { value: stateOf[1].trim(), confidence: "inferred" };
   }
   return { value: null, confidence: null };
 };
@@ -244,25 +257,55 @@ const parseSanctionsList = (text) =>
 
 const parseNumber = (value) => {
   if (!value) return null;
-  const cleaned = value.replace(/,/g, "").replace(/\$/g, "").replace(/\s/g, "");
-  const match = cleaned.match(/-?\d+(?:\.\d+)?/);
+  const cleaned = String(value).replace(/,/g, "").replace(/\$/g, "").replace(/\s/g, "");
+  const match = cleaned.match(/-?\d+(?:\.\d+)?(?:[kmb])?/i);
   if (!match) return null;
-  const num = Number(match[0]);
+  const token = match[0];
+  const suffix = token.slice(-1).toLowerCase();
+  const base = suffix === "k" || suffix === "m" || suffix === "b" ? token.slice(0, -1) : token;
+  let num = Number(base);
+  if (suffix === "k") num *= 1_000;
+  if (suffix === "m") num *= 1_000_000;
+  if (suffix === "b") num *= 1_000_000_000;
   return Number.isNaN(num) ? null : num;
 };
 
 const extractField = (text, labels) => {
-  for (const line of text.split(/\r?\n/)) {
-    const lowered = line.toLowerCase();
+  const lines = text.split(/\r?\n/);
+  for (const line of lines) {
+    if (!line.includes(":")) continue;
+    const [rawKey, rawValue] = line.split(":", 2);
+    const key = rawKey.toLowerCase().trim();
     for (const label of labels) {
-      if (lowered.includes(label)) {
-        const parts = line.split(/[:\-]/, 2);
-        if (parts.length > 1) return parseNumber(parts[1]);
-        return parseNumber(line);
+      if (key === label || key.endsWith(label)) {
+        return parseNumber(rawValue);
       }
     }
   }
+  for (const line of lines) {
+    const lowered = line.toLowerCase();
+    for (const label of labels) {
+      if (!lowered.includes(label)) continue;
+      if (lowered.includes("source note") || lowered.includes("profile")) continue;
+      const parts = line.split(/[:\-]/, 2);
+      if (parts.length > 1) return parseNumber(parts[1]);
+      return parseNumber(line);
+    }
+  }
   return null;
+};
+
+const sumFields = (text, labels) => {
+  let total = 0;
+  let found = false;
+  labels.forEach((label) => {
+    const value = extractField(text, [label]);
+    if (value != null) {
+      total += value;
+      found = true;
+    }
+  });
+  return found ? total : null;
 };
 
 const formatMoney = (value) => {
@@ -294,6 +337,24 @@ const parseTransactionLine = (line) => {
   return data;
 };
 
+const parseBankStatementLine = (line) => {
+  const trimmed = line.trim();
+  const match = trimmed.match(
+    /^(\d{4}-\d{2}-\d{2})(.+?)(\d{6}-\d+)\$([\d,]+\.\d{2})(?:\$([\d,]+\.\d{2}))?$/
+  );
+  if (!match) return null;
+  const [, date, description, ref, amount] = match;
+  return {
+    id: ref.trim(),
+    transaction_id: ref.trim(),
+    date,
+    source: description.trim(),
+    amount,
+    currency: "USD",
+    raw: trimmed
+  };
+};
+
 const detectSignals = (transactions) => {
   const signals = [];
   for (const tx of transactions) {
@@ -303,7 +364,7 @@ const detectSignals = (transactions) => {
     const trigger = tx.id || tx.transaction_id || tx.raw;
 
     if (amount != null && amount > 1_000_000) {
-      if (LIQUIDITY_KEYWORDS.some((keyword) => source.includes(keyword))) {
+      if (LIQUIDITY_PATTERNS.some((pattern) => pattern.test(source))) {
         signals.push({
           signal: "LIQUIDITY_EVENT",
           recommended_product: "Liquidity Management / Sweep Account",
@@ -466,6 +527,53 @@ app.post(
         financials[key] = extractField(financialsText, labels);
       });
 
+      // Real-world spreadsheets often provide component lines instead of headline totals.
+      const inThousands = /\$000|usd\s*\(\$000/i.test(financialsText);
+      if (financials.gross_revenue == null) {
+        financials.gross_revenue = sumFields(financialsText, [
+          "linehaul revenue",
+          "warehousing revenue",
+          "customs & other services",
+          "customs & other revenue"
+        ]);
+      }
+      if (financials.operating_expenses == null) {
+        financials.operating_expenses = sumFields(financialsText, [
+          "linehaul & delivery costs",
+          "fuel costs",
+          "labor & benefits",
+          "facility & warehouse",
+          "technology & communications",
+          "general & administrative"
+        ]);
+      }
+      if (financials.depreciation == null) {
+        financials.depreciation = extractField(financialsText, ["depreciation & amortization"]);
+      }
+      if (financials.annual_debt_service == null) {
+        const interest = extractField(financialsText, ["interest expense"]);
+        const principal = extractField(financialsText, ["debt repayments"]);
+        const leasePrincipal = extractField(financialsText, ["lease principal payments"]);
+        if (interest != null || principal != null || leasePrincipal != null) {
+          financials.annual_debt_service =
+            (interest || 0) + Math.abs(principal || 0) + Math.abs(leasePrincipal || 0);
+        }
+      }
+
+      if (inThousands) {
+        [
+          "gross_revenue",
+          "operating_expenses",
+          "depreciation",
+          "annual_debt_service",
+          "proposed_loan_amount"
+        ].forEach((key) => {
+          if (financials[key] != null) {
+            financials[key] = financials[key] * 1_000;
+          }
+        });
+      }
+
       const ebitda =
         financials.gross_revenue != null &&
         financials.operating_expenses != null &&
@@ -535,10 +643,18 @@ app.post(
       }
 
       // Sales signals
-      const transactions = transactionsText
+      let transactions = transactionsText
         .split(/\r?\n/)
         .filter((line) => line.trim())
-        .map((line) => parseTransactionLine(line));
+        .map((line) => parseTransactionLine(line))
+        .filter((tx) => tx.amount || tx.transaction_amount);
+
+      if (!transactions.length) {
+        transactions = transactionsText
+          .split(/\r?\n/)
+          .map((line) => parseBankStatementLine(line))
+          .filter((tx) => tx);
+      }
       const signals = detectSignals(transactions);
       appendCrossSell(dossier, signals);
 

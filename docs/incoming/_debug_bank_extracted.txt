@@ -1,0 +1,30 @@
+
+
+Generated on 2026-02-05 for demonstration use only.Page 1
+Apex Logistics Corporate Bank Statement
+Statement Period: January 1, 2026 through January 31, 2026
+CompanyApex Logistics, Inc.BankHorizon Commercial Bank
+Account NameApex Logistics Operating AccountAcct #XXXX-XXXX-4421
+SWIFT/BICHRCBUS33Statement Date2026-01-31
+CurrencyUSDRel. ManagerTrevor Hale
+Account Summary
+Opening Balance (2026-01-01)$8,254,810.22
+Total Credits$8,817,050.56
+Total Debits$7,830,504.10
+Closing Balance (2026-01-31)$9,241,356.68
+Average Collected Balance$8,786,504.17
+Annualized Receipt Run Rate$105,804,606.72
+Transaction Detail
+DateDescriptionReferenceDebitCreditBalance
+2026-01-03Client receipts - Orion Retail Group260103-881$2,124,550.00$10,379,360.22
+2026-01-04Fuel network payment batch260104-229$1,112,748.15$9,266,612.07
+2026-01-06Payroll transfer - US operations260106-417$2,488,140.00$6,778,472.07
+2026-01-09Client receipts - Atlas Pharma260109-774$1,746,900.00$8,525,372.07
+2026-01-12Fleet lease payments260112-118$514,306.47$8,011,065.60
+2026-01-15Warehouse rent and utilities260115-662$905,880.28$7,105,185.32
+2026-01-17Client receipts - NorthSea Equipment260117-390$1,535,240.00$8,640,425.32
+2026-01-20Customs duty remittance260120-204$887,996.00$7,752,429.32
+2026-01-23Insurance claim proceeds260123-311$108,540.56$7,860,969.88
+2026-01-27Vendor settlement run260127-948$1,921,433.20$5,939,536.68
+2026-01-30Month-end client remittances260130-532$3,301,820.00$9,241,356.68
+This statement is generated for internal and financing documentation. For questions, contact treasury@apexlogistics.example.
