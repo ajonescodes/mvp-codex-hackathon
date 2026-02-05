@@ -2,6 +2,8 @@ import express from "express";
 import multer from "multer";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import mammoth from "mammoth";
+import xlsx from "xlsx";
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -54,6 +56,75 @@ const loadDossier = async () => {
 const writeDossier = async (dossier) => {
   await ensureDataDir();
   await fs.writeFile(DOSSIER_PATH, `${JSON.stringify(dossier, null, 2)}\n`, "utf-8");
+};
+
+const csvToText = (raw) => {
+  const lines = raw.split(/\r?\n/).filter((line) => line.trim());
+  if (!lines.length) return "";
+  const header = lines[0].split(",").map((h) => h.trim().toLowerCase());
+  const hasTxnHeader =
+    header.includes("id") &&
+    header.includes("amount") &&
+    header.includes("currency") &&
+    header.includes("source");
+
+  if (hasTxnHeader) {
+    const idIdx = header.indexOf("id");
+    const amountIdx = header.indexOf("amount");
+    const currencyIdx = header.indexOf("currency");
+    const sourceIdx = header.indexOf("source");
+    return lines
+      .slice(1)
+      .map((line) => {
+        const cols = line.split(",").map((c) => c.trim());
+        return `id=${cols[idIdx] || ""}, amount=${cols[amountIdx] || ""}, currency=${cols[currencyIdx] || ""}, source=${cols[sourceIdx] || ""}`;
+      })
+      .join("\n");
+  }
+
+  return lines.join("\n");
+};
+
+const sheetToText = (buffer) => {
+  const workbook = xlsx.read(buffer, { type: "buffer" });
+  const lines = [];
+  workbook.SheetNames.forEach((name) => {
+    const sheet = workbook.Sheets[name];
+    const rows = xlsx.utils.sheet_to_json(sheet, { header: 1, defval: "" });
+    rows.forEach((row) => {
+      if (!row || !row.length) return;
+      if (row.length >= 2 && row[0]) {
+        lines.push(`${row[0]}: ${row[1]}`);
+      } else {
+        lines.push(row.filter(Boolean).join(", "));
+      }
+    });
+  });
+  return lines.join("\n");
+};
+
+const fileToText = async (file) => {
+  const ext = path.extname(file.originalname).toLowerCase();
+
+  if (ext === ".docx") {
+    const { value } = await mammoth.extractRawText({ buffer: file.buffer });
+    return value || "";
+  }
+
+  if (ext === ".doc") {
+    // Best-effort fallback for legacy DOC.
+    return file.buffer.toString("utf-8");
+  }
+
+  if (ext === ".xls" || ext === ".xlsx") {
+    return sheetToText(file.buffer);
+  }
+
+  if (ext === ".csv") {
+    return csvToText(file.buffer.toString("utf-8"));
+  }
+
+  return file.buffer.toString("utf-8");
 };
 
 const extractEntityName = (text) => {
@@ -313,9 +384,9 @@ app.post(
         });
       }
 
-      const articlesText = articlesFile.buffer.toString("utf-8");
-      const financialsText = financialsFile.buffer.toString("utf-8");
-      const transactionsText = transactionsFile.buffer.toString("utf-8");
+      const articlesText = await fileToText(articlesFile);
+      const financialsText = await fileToText(financialsFile);
+      const transactionsText = await fileToText(transactionsFile);
 
       const sanctionsText = await fs.readFile(path.join(DATA_DIR, "sanctions_list.txt"), "utf-8");
 
