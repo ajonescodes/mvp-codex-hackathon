@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import json
+import os
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 LOG_PATH = ROOT / "logs" / "transaction_stream.log"
-DOSSIER_PATH = ROOT / "company_dossier.json"
+DOSSIER_PATH = Path(os.environ.get("DOSSIER_PATH", ROOT / "company_dossier.json"))
 SALES_BRIEF_PATH = ROOT / "Sales_Brief.md"
 
 LIQUIDITY_KEYWORDS = ["investment", "vc", "venture", "private equity", "pe"]

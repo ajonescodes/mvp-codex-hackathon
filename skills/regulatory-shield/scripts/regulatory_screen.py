@@ -3,8 +3,10 @@ import json
 import re
 from pathlib import Path
 
+import os
+
 ROOT = Path(__file__).resolve().parents[3]
-DOSSIER_PATH = ROOT / "company_dossier.json"
+DOSSIER_PATH = Path(os.environ.get("DOSSIER_PATH", ROOT / "company_dossier.json"))
 SANCTIONS_PATH = ROOT / "data" / "sanctions_list.txt"
 
 PROHIBITED_INDUSTRIES = {

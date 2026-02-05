@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import json
+import os
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 FINANCIALS_PATH = ROOT / "docs" / "financials.txt"
-DOSSIER_PATH = ROOT / "company_dossier.json"
+DOSSIER_PATH = Path(os.environ.get("DOSSIER_PATH", ROOT / "company_dossier.json"))
 MEMO_PATH = ROOT / "Credit_Memo.md"
 
 FIELDS = {
@@ -99,6 +100,10 @@ def main():
             decision = "REVIEW"
     else:
         decision = "REVIEW"
+
+    regulatory_flags = dossier.get("regulatory_flags") or []
+    if isinstance(regulatory_flags, list) and "CRITICAL" in regulatory_flags:
+        decision = "BLOCKED"
 
     financials_obj = dossier.get("financials")
     if not isinstance(financials_obj, dict):

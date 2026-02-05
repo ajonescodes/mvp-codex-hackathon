@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commercial Lending Autopilot"
+  short_description: "Orchestrate KYB, compliance, risk, sales"
+  default_prompt: "Use $commercial-lending-autopilot to orchestrate KYB, compliance, underwriting, and sales agents with a shared company_dossier.json."

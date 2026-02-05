@@ -7,7 +7,12 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 ARTICLES_PATH = Path(os.environ.get("KYB_ARTICLES_PATH", ROOT / "docs" / "articles_inc.txt"))
-DOSSIER_PATH = Path(os.environ.get("KYB_DOSSIER_PATH", ROOT / "company_dossier.json"))
+DOSSIER_PATH = Path(
+    os.environ.get(
+        "DOSSIER_PATH",
+        os.environ.get("KYB_DOSSIER_PATH", ROOT / "company_dossier.json"),
+    )
+)
 
 ENTITY_NAME_RE = re.compile(r"\bENTITY\s+NAME\b\s*[:\-]\s*(.+)", re.IGNORECASE)
 STATE_RE = re.compile(r"\bSTATE\s+OF\s+REGISTRATION\b\s*[:\-]\s*(.+)", re.IGNORECASE)
