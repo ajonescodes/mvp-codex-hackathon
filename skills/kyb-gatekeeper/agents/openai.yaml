@@ -1,0 +1,4 @@
+interface:
+  display_name: "KYB Gatekeeper"
+  short_description: "Parse incorporation docs for KYB"
+  default_prompt: "Use $kyb-gatekeeper to extract entity name, state, UBOs, and KYB status into company_dossier.json."

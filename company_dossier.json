@@ -1,0 +1,46 @@
+{
+  "entity_name": "Atlas Meridian Logistics LLC",
+  "state": "Delaware",
+  "entity_type": "LLC",
+  "industry": "Logistics",
+  "annual_revenue_usd": 5000000,
+  "employees": 300,
+  "operations": [
+    "United States",
+    "Europe"
+  ],
+  "assets": {
+    "total_usd": 8500000,
+    "breakdown": {
+      "cash_and_equivalents_usd": 1200000,
+      "accounts_receivable_usd": 1600000,
+      "inventory_usd": 500000,
+      "property_plant_equipment_usd": 4200000,
+      "other_assets_usd": 1000000
+    }
+  },
+  "liabilities": {
+    "total_usd": 4200000,
+    "breakdown": {
+      "accounts_payable_usd": 900000,
+      "short_term_debt_usd": 600000,
+      "long_term_debt_usd": 2100000,
+      "accrued_expenses_usd": 400000,
+      "other_liabilities_usd": 200000
+    }
+  },
+  "ubo_list": [
+    {
+      "name": "John Smith",
+      "role": "CEO",
+      "ownership_pct": 60.0
+    },
+    {
+      "name": "Maria Lopez",
+      "role": "COO",
+      "ownership_pct": 40.0
+    }
+  ],
+  "kyb_status": "APPROVED",
+  "regulatory_flags": []
+}
