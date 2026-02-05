@@ -7,7 +7,8 @@ const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
 const ROOT = path.resolve(process.cwd(), "..");
-const DOSSIER_PATH = path.join(ROOT, "company_dossier.json");
+const DATA_DIR = path.join(process.cwd(), "data");
+const DOSSIER_PATH = path.join(DATA_DIR, "company_dossier.json");
 
 const ENTITY_NAME_RE = /\bENTITY\s+NAME\b\s*[:\-]\s*(.+)/i;
 const STATE_RE = /\bSTATE\s+OF\s+REGISTRATION\b\s*[:\-]\s*(.+)/i;
@@ -99,7 +100,13 @@ app.post("/api/kyb", upload.single("file"), async (req, res) => {
     }
 
     const articlesText = req.file.buffer.toString("utf-8");
-    const dossierRaw = await fs.readFile(DOSSIER_PATH, "utf-8");
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    let dossierRaw = "{}";
+    try {
+      dossierRaw = await fs.readFile(DOSSIER_PATH, "utf-8");
+    } catch {
+      dossierRaw = "{}";
+    }
     const dossier = dossierRaw.trim() ? JSON.parse(dossierRaw) : {};
 
     const entityName = extractEntityName(articlesText);

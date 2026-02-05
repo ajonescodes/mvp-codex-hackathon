@@ -73,7 +73,10 @@ export default function App() {
               {uploadStatus === "loading" ? "Processing..." : "Run KYB agent"}
             </button>
           </form>
-          <p className="hint">TXT only for now. It will update company_dossier.json on disk.</p>
+          <p className="hint">
+            TXT only for now. The updated dossier is stored at
+            <span className="mono-inline"> kyb-ui/server/data/company_dossier.json</span>.
+          </p>
           {uploadMessage ? (
             <p className={uploadStatus === "error" ? "warn" : "ok"}>{uploadMessage}</p>
           ) : null}

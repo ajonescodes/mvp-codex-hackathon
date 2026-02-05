@@ -1,0 +1,18 @@
+{
+  "entity_name": "Atlas Meridian Logistics LLC",
+  "state": "Delaware",
+  "ubo_list": [
+    {
+      "name": "John Smith",
+      "role": "CEO",
+      "ownership_pct": 60
+    },
+    {
+      "name": "Maria Lopez",
+      "role": "COO",
+      "ownership_pct": 40
+    }
+  ],
+  "kyb_status": "APPROVED",
+  "regulatory_flags": []
+}
