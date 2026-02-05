@@ -96,10 +96,10 @@ export default function App() {
             </div>
           </div>
           <div className="autopilot-text" aria-live="polite">
-            <span>KYB Gatekeeper verifies entity and UBOs.</span>
-            <span>Regulatory Shield screens sanctions and prohibited industries.</span>
-            <span>Credit Underwriter computes EBITDA, DSCR, and decisioning.</span>
-            <span>Relationship Sentinel surfaces cross-sell opportunities.</span>
+            <span className="step-1-text">KYB Gatekeeper verifies entity and UBOs.</span>
+            <span className="step-2-text">Regulatory Shield screens sanctions and prohibited industries.</span>
+            <span className="step-3-text">Credit Underwriter computes EBITDA, DSCR, and decisioning.</span>
+            <span className="step-4-text">Relationship Sentinel surfaces cross-sell opportunities.</span>
           </div>
         </section>
 

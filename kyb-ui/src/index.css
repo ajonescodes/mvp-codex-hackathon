@@ -424,6 +424,7 @@ h1 {
   animation-delay: 9s;
 }
 
+
 @keyframes line-sweep {
   0% {
     width: 0%;
@@ -467,16 +468,12 @@ h1 {
 }
 
 @keyframes cycle {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  10%,
-  25% {
+  0%,
+  20% {
     opacity: 1;
     transform: translateY(0);
   }
-  35% {
+  30% {
     opacity: 0;
     transform: translateY(-6px);
   }
