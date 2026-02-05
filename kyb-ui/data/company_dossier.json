@@ -1,14 +1,14 @@
 {
-  "entity_name": "Seabreeze Imports LLC",
-  "state": "Florida",
+  "entity_name": "Ironbridge Supply Co.",
+  "state": "Illinois",
   "ubo_list": [
     {
-      "name": "Carla Mendes",
-      "role": "CEO",
-      "ownership_pct": 60
+      "name": "Daniel Ruiz",
+      "role": "President",
+      "ownership_pct": 55
     },
     {
-      "name": "Omar Idris",
+      "name": "Mia Nguyen",
       "role": "COO",
       "ownership_pct": 30
     }
@@ -22,15 +22,15 @@
     "status": "CLEAR"
   },
   "financials": {
-    "gross_revenue": 6400000,
-    "operating_expenses": 4200000,
-    "depreciation": 300000,
-    "annual_debt_service": 950000,
-    "proposed_loan_amount": 2000000,
-    "ebitda": 2500000,
-    "dscr": 2.6315789473684212
+    "gross_revenue": 4100000,
+    "operating_expenses": 3900000,
+    "depreciation": 120000,
+    "annual_debt_service": 420000,
+    "proposed_loan_amount": 1200000,
+    "ebitda": 320000,
+    "dscr": 0.7619047619047619
   },
-  "credit_decision": "APPROVE",
+  "credit_decision": "DECLINE",
   "cross_sell_opportunities": [
     {
       "signal": "LIQUIDITY_EVENT",
@@ -72,6 +72,18 @@
       "signal": "FX_EXPOSURE",
       "recommended_product": "FX Forward Contracts",
       "trigger_transaction": "FX1003",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "Generated for testing. Format: id=..., amount=..., currency=..., source=...",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "LIQUIDITY_EVENT",
+      "recommended_product": "Liquidity Management / Sweep Account",
+      "trigger_transaction": "LB1001",
       "confidence": "HIGH"
     }
   ]

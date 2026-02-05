@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Player } from "@remotion/player";
-import { EligibilityPulse } from "./remotion/EligibilityPulse.jsx";
 
 export default function App() {
   const [files, setFiles] = useState({
@@ -79,25 +77,21 @@ export default function App() {
             upload your documents and get a clear decision summary.
           </p>
         </div>
-        <div className="hero-media card">
-          <div className="player-frame">
-            <Player
-              component={EligibilityPulse}
-              durationInFrames={180}
-              fps={30}
-              compositionWidth={520}
-              compositionHeight={320}
-              controls={false}
-              autoPlay
-              loop
-              style={{ width: "100%" }}
-            />
-          </div>
-        </div>
       </header>
 
-      <main className="grid">
-        <section className="panel upload">
+      <main>
+        <section className="autopilot-banner">
+          <div className="autopilot-line" aria-hidden="true" />
+          <div className="autopilot-text" aria-live="polite">
+            <span>Autopilot running: KYB Gatekeeper verifies entity and UBOs.</span>
+            <span>Regulatory Shield screens sanctions and prohibited industries.</span>
+            <span>Credit Underwriter computes EBITDA, DSCR, and decisioning.</span>
+            <span>Relationship Sentinel surfaces cross-sell opportunities.</span>
+          </div>
+        </section>
+
+        <section className="grid">
+          <section className="panel upload">
           <div className="panel-head">
             <h2>Check your eligibility</h2>
             <p>Upload the required files to assess your lending eligibility.</p>
@@ -136,15 +130,27 @@ export default function App() {
             <div className="summary">
               <div>
                 <span className="label">KYB status</span>
-                <p>{summary.kyb_status}</p>
+                <p className={summary.kyb_status === "APPROVED" ? "ok" : "warn"}>
+                  {summary.kyb_status}
+                </p>
               </div>
               <div>
                 <span className="label">Compliance</span>
-                <p>{summary.compliance_status}</p>
+                <p className={summary.compliance_status === "CLEAR" ? "ok" : "warn"}>
+                  {summary.compliance_status}
+                </p>
               </div>
               <div>
                 <span className="label">Credit decision</span>
-                <p className={summary.credit_decision === "BLOCKED" ? "warn" : "ok"}>
+                <p
+                  className={
+                    summary.credit_decision === "APPROVE"
+                      ? "ok"
+                      : summary.credit_decision === "REVIEW"
+                      ? "risk-medium"
+                      : "warn"
+                  }
+                >
                   {summary.credit_decision}
                 </p>
               </div>
@@ -212,6 +218,7 @@ export default function App() {
               </a>
             </div>
           ) : null}
+        </section>
         </section>
       </main>
     </div>

@@ -1,19 +1,19 @@
 # Credit Memo
 
 ## 1) Executive Summary
-Seabreeze Imports LLC is requesting commercial credit. Based on the provided financials, the preliminary decision is **APPROVE**.
+Ironbridge Supply Co. is requesting commercial credit. Based on the provided financials, the preliminary decision is **DECLINE**.
 
 ## 2) Business Overview
-- Entity: Seabreeze Imports LLC
+- Entity: Ironbridge Supply Co.
 - Industry: Not specified
 
 ## 3) Financial Analysis
-- Gross Revenue: $6,400,000
-- Operating Expenses: $4,200,000
-- Depreciation (add-back): $300,000
-- EBITDA: $2,500,000
-- Annual Debt Service: $950,000
-- DSCR: 2.63x
+- Gross Revenue: $4,100,000
+- Operating Expenses: $3,900,000
+- Depreciation (add-back): $120,000
+- EBITDA: $320,000
+- Annual Debt Service: $420,000
+- DSCR: 0.76x
 
 Depreciation is treated as a non-cash expense and added back to operating earnings when calculating EBITDA.
 
@@ -26,6 +26,6 @@ Depreciation is treated as a non-cash expense and added back to operating earnin
 - Debt service coverage should be monitored against policy thresholds.
 
 ## 6) Credit Recommendation
-**Decision:** APPROVE
+**Decision:** DECLINE
 
 **Suggested Covenant:** Maintain DSCR > 1.25x.
