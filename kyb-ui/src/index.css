@@ -355,7 +355,7 @@ h1 {
   top: 0;
   opacity: 0;
   transform: translateY(6px);
-  animation: cycle 12s infinite;
+  animation: cycle 15s infinite;
 }
 
 .autopilot-text span:nth-child(1) {
@@ -372,6 +372,17 @@ h1 {
 
 .autopilot-text span:nth-child(4) {
   animation-delay: 9s;
+}
+
+.autopilot-text span:nth-child(5) {
+  animation-delay: 12s;
+}
+
+.autopilot-text .major {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #3d2a12;
 }
 
 @keyframes sweep {
@@ -392,11 +403,11 @@ h1 {
     transform: translateY(6px);
   }
   10%,
-  25% {
+  22% {
     opacity: 1;
     transform: translateY(0);
   }
-  35% {
+  32% {
     opacity: 0;
     transform: translateY(-6px);
   }
