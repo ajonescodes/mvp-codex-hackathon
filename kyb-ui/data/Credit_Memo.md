@@ -1,19 +1,19 @@
 # Credit Memo
 
 ## 1) Executive Summary
-Prime Estates LLC is requesting commercial credit. Based on the provided financials, the preliminary decision is **APPROVE**.
+Prime Estates LLC is requesting commercial credit. Based on the provided financials, the preliminary decision is **REVIEW**.
 
 ## 2) Business Overview
 - Entity: Prime Estates LLC
 - Industry: Not specified
 
 ## 3) Financial Analysis
-- Gross Revenue: $9,800,000
-- Operating Expenses: $6,500,000
-- Depreciation (add-back): $450,000
-- EBITDA: $3,750,000
-- Annual Debt Service: $1,400,000
-- DSCR: 2.68x
+- Gross Revenue: $100
+- Operating Expenses: $0.15
+- Depreciation (add-back): $2,096
+- EBITDA: $2,195.86
+- Annual Debt Service: Not provided
+- DSCR: Not provided
 
 Depreciation is treated as a non-cash expense and added back to operating earnings when calculating EBITDA.
 
@@ -26,6 +26,6 @@ Depreciation is treated as a non-cash expense and added back to operating earnin
 - Debt service coverage should be monitored against policy thresholds.
 
 ## 6) Credit Recommendation
-**Decision:** APPROVE
+**Decision:** REVIEW
 
 **Suggested Covenant:** Maintain DSCR > 1.25x.

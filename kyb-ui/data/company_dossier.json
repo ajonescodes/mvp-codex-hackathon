@@ -13,8 +13,11 @@
       "ownership_pct": 35
     }
   ],
-  "kyb_status": "APPROVED",
-  "regulatory_flags": [],
+  "kyb_status": "REJECTED",
+  "regulatory_flags": [
+    "MISSING_STATE",
+    "NO_UBO_OVER_25"
+  ],
   "compliance_summary": {
     "sanctions_checked": true,
     "prohibited_industry_checked": true,
@@ -22,15 +25,15 @@
     "status": "CLEAR"
   },
   "financials": {
-    "gross_revenue": 9800000,
-    "operating_expenses": 6500000,
-    "depreciation": 450000,
+    "gross_revenue": 100,
+    "operating_expenses": 0.145,
+    "depreciation": 2096,
     "annual_debt_service": 1400000,
     "proposed_loan_amount": 3200000,
-    "ebitda": 3750000,
+    "ebitda": 2195.855,
     "dscr": 2.6785714285714284
   },
-  "credit_decision": "APPROVE",
+  "credit_decision": "REVIEW",
   "cross_sell_opportunities": [
     {
       "signal": "LIQUIDITY_EVENT",

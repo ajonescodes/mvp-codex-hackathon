@@ -360,6 +360,7 @@ h1 {
   border-radius: 14px;
   border: 1px dashed var(--line);
   background: #fffdfa;
+  min-width: 0;
 }
 
 .file-card input[type="file"] {
@@ -369,6 +370,11 @@ h1 {
 .file-name {
   font-size: 0.85rem;
   color: var(--muted);
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .download-row {

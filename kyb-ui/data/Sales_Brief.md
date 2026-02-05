@@ -1,12 +1,11 @@
 # Sales Brief
 
 ## 1) Opportunity Summary
-- Signals detected: FX_EXPOSURE, LIQUIDITY_EVENT.
+- No signals detected.
 - Why it matters now: recent transaction patterns suggest active capital movement and cross-border exposure.
 
 ## 2) Recommended Product(s)
-- FX Forward Contracts: improve cash visibility and risk management.
-- Liquidity Management / Sweep Account: improve cash visibility and risk management.
+- No product recommendations available.
 
 ## 3) Suggested Talking Points
 - Reference recent transaction activity for Prime Estates LLC without citing raw amounts.
