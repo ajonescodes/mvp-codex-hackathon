@@ -1,10 +1,11 @@
 import React, { useState } from "react";
+import { Player } from "@remotion/player";
+import { EligibilityPulse } from "./remotion/EligibilityPulse.jsx";
 
 export default function App() {
   const [files, setFiles] = useState({
     articles: null,
     financials: null,
-    sanctions: null,
     transactions: null
   });
   const [status, setStatus] = useState("idle");
@@ -19,9 +20,9 @@ export default function App() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!files.articles || !files.financials || !files.sanctions || !files.transactions) {
+    if (!files.articles || !files.financials || !files.transactions) {
       setStatus("error");
-      setMessage("Upload all four files to run the autopilot.");
+      setMessage("Upload the required files to run the autopilot.");
       return;
     }
 
@@ -32,7 +33,6 @@ export default function App() {
     const formData = new FormData();
     formData.append("articles", files.articles);
     formData.append("financials", files.financials);
-    formData.append("sanctions", files.sanctions);
     formData.append("transactions", files.transactions);
 
     try {
@@ -72,19 +72,34 @@ export default function App() {
       <header className="hero">
         <div>
           <p className="eyebrow">Commercial Lending Autopilot</p>
-          <h1>Client Intake + Decision Engine</h1>
+          <h1>Check Eligibility in 60 Seconds</h1>
           <p className="subhead">
-            Upload the required documents and run KYB, compliance screening,
-            underwriting, and relationship insights in one pass.
+            Fast, hassle-free pre-qualification for business lending—securely
+            upload your documents and get a clear decision summary.
           </p>
+        </div>
+        <div className="hero-media card">
+          <div className="player-frame">
+            <Player
+              component={EligibilityPulse}
+              durationInFrames={180}
+              fps={30}
+              compositionWidth={520}
+              compositionHeight={320}
+              controls={false}
+              autoPlay
+              loop
+              style={{ width: "100%" }}
+            />
+          </div>
         </div>
       </header>
 
       <main className="grid">
         <section className="panel upload">
           <div className="panel-head">
-            <h2>Upload inputs</h2>
-            <p>All four files are required to run the full autopilot.</p>
+            <h2>Check your eligibility</h2>
+            <p>Upload the required files to assess your lending eligibility.</p>
           </div>
           <form className="upload-form" onSubmit={handleSubmit}>
             <div className="file-grid">
@@ -99,12 +114,7 @@ export default function App() {
                 <span className="file-name">{files.financials?.name || "TXT file"}</span>
               </label>
               <label className="file-card">
-                <span className="label">Sanctions list</span>
-                <input type="file" accept=".txt" onChange={handleFileChange("sanctions")} />
-                <span className="file-name">{files.sanctions?.name || "TXT file"}</span>
-              </label>
-              <label className="file-card">
-                <span className="label">Transaction log</span>
+                <span className="label">Bank statement</span>
                 <input type="file" accept=".log,.txt" onChange={handleFileChange("transactions")} />
                 <span className="file-name">{files.transactions?.name || "LOG/TXT file"}</span>
               </label>
@@ -114,16 +124,12 @@ export default function App() {
             </button>
           </form>
           {message ? <p className={status === "error" ? "warn" : "ok"}>{message}</p> : null}
-          <p className="hint">
-            Output files are stored at
-            <span className="mono-inline"> kyb-ui/server/data</span>.
-          </p>
         </section>
 
         <section className="panel result">
           <div className="panel-head">
             <h2>Decision summary</h2>
-            <p>Final status once all agents complete.</p>
+            <p>Your results will appear here once processing completes.</p>
           </div>
           {summary ? (
             <div className="summary">
@@ -147,11 +153,11 @@ export default function App() {
               </div>
             </div>
           ) : (
-            <p className="empty">Run the autopilot to generate a summary.</p>
+            <p className="empty">Upload your documents and click Run to see results.</p>
           )}
 
           <div className="opportunity-list">
-            <p className="label">Detected opportunities</p>
+            <p className="label">Opportunities we identified</p>
             {opportunities.length ? (
               opportunities.map((opp, index) => (
                 <div className="ubo" key={`${opp.signal}-${index}`}>
@@ -163,21 +169,23 @@ export default function App() {
                 </div>
               ))
             ) : (
-              <p className="empty">No cross-sell signals detected.</p>
+              <p className="empty">No opportunities identified from the submitted documents.</p>
             )}
           </div>
 
-          <div className="download-row">
-            <a className="btn secondary" href={artifacts.dossier || "#"} download>
-              Download dossier
-            </a>
-            <a className="btn secondary" href={artifacts.credit_memo || "#"} download>
-              Download credit memo
-            </a>
-            <a className="btn secondary" href={artifacts.sales_brief || "#"} download>
-              Download sales brief
-            </a>
-          </div>
+          {summary ? (
+            <div className="download-row">
+              <a className="btn secondary" href={artifacts.dossier || "#"} download>
+                Download dossier
+              </a>
+              <a className="btn secondary" href={artifacts.credit_memo || "#"} download>
+                Download credit memo
+              </a>
+              <a className="btn secondary" href={artifacts.sales_brief || "#"} download>
+                Download sales brief
+              </a>
+            </div>
+          ) : null}
         </section>
       </main>
     </div>

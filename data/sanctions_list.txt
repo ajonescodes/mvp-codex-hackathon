@@ -1,1 +1,8 @@
-# Add one sanctioned name per line. Lines starting with # are ignored.
+# Sanctions test list (one name per line)
+Prime Estates
+Prime Estates Holdings
+
+# Additional sanctioned entities (sample)
+Orion Arms Trading
+Blackwater Syndicate
+Northern Star Shipping

@@ -295,7 +295,6 @@ app.post(
   upload.fields([
     { name: "articles", maxCount: 1 },
     { name: "financials", maxCount: 1 },
-    { name: "sanctions", maxCount: 1 },
     { name: "transactions", maxCount: 1 }
   ]),
   async (req, res) => {
@@ -305,20 +304,20 @@ app.post(
 
       const articlesFile = getFile("articles");
       const financialsFile = getFile("financials");
-      const sanctionsFile = getFile("sanctions");
       const transactionsFile = getFile("transactions");
 
-      if (!articlesFile || !financialsFile || !sanctionsFile || !transactionsFile) {
+      if (!articlesFile || !financialsFile || !transactionsFile) {
         return res.status(400).json({
           error: "Missing required files",
-          detail: "Upload articles, financials, sanctions list, and transaction log."
+          detail: "Upload articles, financials, and transaction log."
         });
       }
 
       const articlesText = articlesFile.buffer.toString("utf-8");
       const financialsText = financialsFile.buffer.toString("utf-8");
-      const sanctionsText = sanctionsFile.buffer.toString("utf-8");
       const transactionsText = transactionsFile.buffer.toString("utf-8");
+
+      const sanctionsText = await fs.readFile(path.join(DATA_DIR, "sanctions_list.txt"), "utf-8");
 
       const dossier = await loadDossier();
 

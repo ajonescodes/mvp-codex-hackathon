@@ -321,3 +321,15 @@ h1 {
   display: grid;
   gap: 12px;
 }
+
+.hero-media {
+  flex: 1 1 360px;
+  max-width: 520px;
+}
+
+.player-frame {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: #fffaf4;
+}
