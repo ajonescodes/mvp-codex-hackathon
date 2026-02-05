@@ -116,28 +116,28 @@ export default function App() {
                 <span className="label">Articles of Incorporation</span>
                 <input
                   type="file"
-                  accept=".txt,.doc,.docx,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  accept=".txt,.doc,.docx,.pdf,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
                   onChange={handleFileChange("articles")}
                 />
-                <span className="file-name">{files.articles?.name || "TXT, DOC, DOCX"}</span>
+                <span className="file-name">{files.articles?.name || "TXT, DOC, DOCX, PDF"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Financials</span>
                 <input
                   type="file"
-                  accept=".txt,.xls,.xlsx,.csv,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  accept=".txt,.xls,.xlsx,.csv,.pdf,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf"
                   onChange={handleFileChange("financials")}
                 />
-                <span className="file-name">{files.financials?.name || "TXT, XLS, XLSX, CSV"}</span>
+                <span className="file-name">{files.financials?.name || "TXT, XLS, XLSX, CSV, PDF"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Bank statement</span>
                 <input
                   type="file"
-                  accept=".log,.txt,.csv,.xls,.xlsx,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  accept=".log,.txt,.csv,.xls,.xlsx,.pdf,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/pdf"
                   onChange={handleFileChange("transactions")}
                 />
-                <span className="file-name">{files.transactions?.name || "LOG, TXT, CSV, XLS, XLSX"}</span>
+                <span className="file-name">{files.transactions?.name || "LOG, TXT, CSV, XLS, XLSX, PDF"}</span>
               </label>
             </div>
             <button className="btn" type="submit" disabled={status === "loading"}>
