@@ -1,16 +1,16 @@
 {
-  "entity_name": "Ironbridge Supply Co.",
-  "state": "Illinois",
+  "entity_name": "Prime Estates LLC",
+  "state": "Nevada",
   "ubo_list": [
     {
-      "name": "Daniel Ruiz",
-      "role": "President",
-      "ownership_pct": 55
+      "name": "Damian Holt",
+      "role": "Managing Partner",
+      "ownership_pct": 60
     },
     {
-      "name": "Mia Nguyen",
-      "role": "COO",
-      "ownership_pct": 30
+      "name": "Elena Ruiz",
+      "role": "Partner",
+      "ownership_pct": 35
     }
   ],
   "kyb_status": "APPROVED",
@@ -22,15 +22,15 @@
     "status": "CLEAR"
   },
   "financials": {
-    "gross_revenue": 4100000,
-    "operating_expenses": 3900000,
-    "depreciation": 120000,
-    "annual_debt_service": 420000,
-    "proposed_loan_amount": 1200000,
-    "ebitda": 320000,
-    "dscr": 0.7619047619047619
+    "gross_revenue": 9800000,
+    "operating_expenses": 6500000,
+    "depreciation": 450000,
+    "annual_debt_service": 1400000,
+    "proposed_loan_amount": 3200000,
+    "ebitda": 3750000,
+    "dscr": 2.6785714285714284
   },
-  "credit_decision": "DECLINE",
+  "credit_decision": "APPROVE",
   "cross_sell_opportunities": [
     {
       "signal": "LIQUIDITY_EVENT",
@@ -84,6 +84,18 @@
       "signal": "LIQUIDITY_EVENT",
       "recommended_product": "Liquidity Management / Sweep Account",
       "trigger_transaction": "LB1001",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "Generated for testing. Format: id=..., amount=..., currency=..., source=...",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "LIQUIDITY_EVENT",
+      "recommended_product": "Liquidity Management / Sweep Account",
+      "trigger_transaction": "PE1001",
       "confidence": "HIGH"
     }
   ]

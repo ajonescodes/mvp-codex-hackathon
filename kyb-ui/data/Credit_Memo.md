@@ -1,19 +1,19 @@
 # Credit Memo
 
 ## 1) Executive Summary
-Ironbridge Supply Co. is requesting commercial credit. Based on the provided financials, the preliminary decision is **DECLINE**.
+Prime Estates LLC is requesting commercial credit. Based on the provided financials, the preliminary decision is **APPROVE**.
 
 ## 2) Business Overview
-- Entity: Ironbridge Supply Co.
+- Entity: Prime Estates LLC
 - Industry: Not specified
 
 ## 3) Financial Analysis
-- Gross Revenue: $4,100,000
-- Operating Expenses: $3,900,000
-- Depreciation (add-back): $120,000
-- EBITDA: $320,000
-- Annual Debt Service: $420,000
-- DSCR: 0.76x
+- Gross Revenue: $9,800,000
+- Operating Expenses: $6,500,000
+- Depreciation (add-back): $450,000
+- EBITDA: $3,750,000
+- Annual Debt Service: $1,400,000
+- DSCR: 2.68x
 
 Depreciation is treated as a non-cash expense and added back to operating earnings when calculating EBITDA.
 
@@ -26,6 +26,6 @@ Depreciation is treated as a non-cash expense and added back to operating earnin
 - Debt service coverage should be monitored against policy thresholds.
 
 ## 6) Credit Recommendation
-**Decision:** DECLINE
+**Decision:** APPROVE
 
 **Suggested Covenant:** Maintain DSCR > 1.25x.

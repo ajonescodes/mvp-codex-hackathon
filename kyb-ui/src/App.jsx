@@ -115,17 +115,17 @@ export default function App() {
               <label className="file-card">
                 <span className="label">Articles of Incorporation</span>
                 <input type="file" accept=".txt,.doc,.docx" onChange={handleFileChange("articles")} />
-                <span className="file-name">{files.articles?.name || "TXT file"}</span>
+                <span className="file-name">{files.articles?.name || "TXT, DOC, DOCX"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Financials</span>
                 <input type="file" accept=".txt,.xls,.xlsx,.csv" onChange={handleFileChange("financials")} />
-                <span className="file-name">{files.financials?.name || "TXT file"}</span>
+                <span className="file-name">{files.financials?.name || "TXT, XLS, XLSX, CSV"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Bank statement</span>
                 <input type="file" accept=".log,.txt,.csv,.xls,.xlsx" onChange={handleFileChange("transactions")} />
-                <span className="file-name">{files.transactions?.name || "LOG/TXT file"}</span>
+                <span className="file-name">{files.transactions?.name || "LOG, TXT, CSV, XLS, XLSX"}</span>
               </label>
             </div>
             <button className="btn" type="submit" disabled={status === "loading"}>
