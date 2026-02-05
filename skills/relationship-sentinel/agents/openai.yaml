@@ -1,0 +1,4 @@
+interface:
+  display_name: "Relationship Sentinel"
+  short_description: "Cross-sell signal detection"
+  default_prompt: "Use $relationship-sentinel to analyze transaction streams for cross-sell signals and generate Sales_Brief.md."
