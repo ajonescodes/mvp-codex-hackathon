@@ -1,0 +1,5 @@
+id=TX1001, amount=1250000, currency=USD, source=VC Funding Round
+id=TX1002, amount=220000, currency=EUR, source=Customer Payment EU
+id=TX1003, amount=78000, currency=USD, source=Domestic Customer Payment
+id=TX1004, amount=315000, currency=GBP, source=Customer Payment UK
+id=TX1005, amount=2500000, currency=USD, source=Private Equity Investment
