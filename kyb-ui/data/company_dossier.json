@@ -3,17 +3,27 @@
   "state": "Nevada",
   "ubo_list": [
     {
-      "name": "Damian Holt",
-      "role": "Managing Partner",
-      "ownership_pct": 60
+      "name": "Apex Founders Holdings LLCDelaware LLC3",
+      "role": "200",
+      "ownership_pct": 40
     },
     {
-      "name": "Elena Ruiz",
-      "role": "Partner",
-      "ownership_pct": 35
+      "name": "NorthBridge Capital Partners LPDelaware LP2",
+      "role": "400",
+      "ownership_pct": 30
+    },
+    {
+      "name": "Total8",
+      "role": "000",
+      "ownership_pct": 100
+    },
+    {
+      "name": "NorthBridge Capital Partners LP .",
+      "role": null,
+      "ownership_pct": 30
     }
   ],
-  "kyb_status": "REJECTED",
+  "kyb_status": "APPROVED",
   "regulatory_flags": [
     "MISSING_STATE",
     "NO_UBO_OVER_25"
@@ -25,15 +35,15 @@
     "status": "CLEAR"
   },
   "financials": {
-    "gross_revenue": 100,
-    "operating_expenses": 0.145,
-    "depreciation": 2096,
-    "annual_debt_service": 1400000,
+    "gross_revenue": 60137000,
+    "operating_expenses": 65557000,
+    "depreciation": 2096000,
+    "annual_debt_service": 2916000,
     "proposed_loan_amount": 3200000,
-    "ebitda": 2195.855,
-    "dscr": 2.6785714285714284
+    "ebitda": -3324000,
+    "dscr": -1.139917695473251
   },
-  "credit_decision": "REVIEW",
+  "credit_decision": "DECLINE",
   "cross_sell_opportunities": [
     {
       "signal": "LIQUIDITY_EVENT",
