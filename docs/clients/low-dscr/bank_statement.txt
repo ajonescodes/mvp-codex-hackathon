@@ -1,0 +1,2 @@
+id=LB1001, amount=1800000, currency=USD, source=Private Equity Investment
+id=LB1002, amount=210000, currency=USD, source=Customer Payment

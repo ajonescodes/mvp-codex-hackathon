@@ -1,0 +1,3 @@
+id=GL1001, amount=1400000, currency=USD, source=Private Equity Investment
+id=GL1002, amount=320000, currency=EUR, source=Customer Payment EU
+id=GL1003, amount=125000, currency=USD, source=Domestic Customer Payment

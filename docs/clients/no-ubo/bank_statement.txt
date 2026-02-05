@@ -1,0 +1,2 @@
+id=NW1001, amount=220000, currency=USD, source=Customer Payment
+id=NW1002, amount=95000, currency=USD, source=Customer Payment

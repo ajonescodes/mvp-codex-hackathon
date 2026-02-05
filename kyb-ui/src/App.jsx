@@ -56,7 +56,7 @@ export default function App() {
 
       setResult(data);
       setStatus("success");
-      setMessage("Autopilot completed successfully.");
+      setMessage("");
     } catch (err) {
       setStatus("error");
       setMessage(err?.message || "Autopilot failed.");

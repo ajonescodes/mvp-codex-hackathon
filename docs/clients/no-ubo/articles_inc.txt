@@ -1,0 +1,15 @@
+ARTICLES OF INCORPORATION
+
+ENTITY NAME: Northwind Freight LLC
+STATE OF REGISTRATION: Texas
+ENTITY TYPE: LLC
+
+BUSINESS SUMMARY
+Northwind Freight LLC provides regional trucking services.
+
+BENEFICIAL OWNERS
+- Sam Turner, Founder (20% Ownership)
+- Lina Park, CFO (15% Ownership)
+
+REGISTERED OFFICE
+12 Commerce Blvd, Dallas, TX 75201

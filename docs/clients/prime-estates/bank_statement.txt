@@ -1,0 +1,2 @@
+id=PE1001, amount=2100000, currency=USD, source=VC Capital Injection
+id=PE1002, amount=480000, currency=USD, source=Tenant Rent Collections

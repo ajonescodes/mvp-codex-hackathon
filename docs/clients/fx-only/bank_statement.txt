@@ -1,0 +1,3 @@
+id=FX1001, amount=280000, currency=EUR, source=Customer Payment EU
+id=FX1002, amount=310000, currency=GBP, source=Customer Payment UK
+id=FX1003, amount=190000, currency=CAD, source=Customer Payment CA
