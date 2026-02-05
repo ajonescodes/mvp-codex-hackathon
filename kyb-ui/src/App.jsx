@@ -114,17 +114,29 @@ export default function App() {
             <div className="file-grid">
               <label className="file-card">
                 <span className="label">Articles of Incorporation</span>
-                <input type="file" accept=".txt,.doc,.docx" onChange={handleFileChange("articles")} />
+                <input
+                  type="file"
+                  accept=".txt,.doc,.docx,text/plain,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  onChange={handleFileChange("articles")}
+                />
                 <span className="file-name">{files.articles?.name || "TXT, DOC, DOCX"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Financials</span>
-                <input type="file" accept=".txt,.xls,.xlsx,.csv" onChange={handleFileChange("financials")} />
+                <input
+                  type="file"
+                  accept=".txt,.xls,.xlsx,.csv,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  onChange={handleFileChange("financials")}
+                />
                 <span className="file-name">{files.financials?.name || "TXT, XLS, XLSX, CSV"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Bank statement</span>
-                <input type="file" accept=".log,.txt,.csv,.xls,.xlsx" onChange={handleFileChange("transactions")} />
+                <input
+                  type="file"
+                  accept=".log,.txt,.csv,.xls,.xlsx,text/plain,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                  onChange={handleFileChange("transactions")}
+                />
                 <span className="file-name">{files.transactions?.name || "LOG, TXT, CSV, XLS, XLSX"}</span>
               </label>
             </div>
