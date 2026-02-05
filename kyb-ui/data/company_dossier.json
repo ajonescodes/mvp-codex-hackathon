@@ -14,5 +14,47 @@
     }
   ],
   "kyb_status": "APPROVED",
-  "regulatory_flags": []
+  "regulatory_flags": [],
+  "compliance_summary": {
+    "sanctions_checked": true,
+    "prohibited_industry_checked": true,
+    "issues_found": [],
+    "status": "CLEAR"
+  },
+  "financials": {
+    "gross_revenue": 5000000,
+    "operating_expenses": 3600000,
+    "depreciation": 250000,
+    "annual_debt_service": 900000,
+    "proposed_loan_amount": 1500000,
+    "ebitda": 1650000,
+    "dscr": 1.8333333333333333
+  },
+  "credit_decision": "APPROVE",
+  "cross_sell_opportunities": [
+    {
+      "signal": "LIQUIDITY_EVENT",
+      "recommended_product": "Liquidity Management / Sweep Account",
+      "trigger_transaction": "TX1001",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "TX1002",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "FX_EXPOSURE",
+      "recommended_product": "FX Forward Contracts",
+      "trigger_transaction": "TX1004",
+      "confidence": "HIGH"
+    },
+    {
+      "signal": "LIQUIDITY_EVENT",
+      "recommended_product": "Liquidity Management / Sweep Account",
+      "trigger_transaction": "TX1005",
+      "confidence": "HIGH"
+    }
+  ]
 }

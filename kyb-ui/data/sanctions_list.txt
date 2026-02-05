@@ -1,0 +1,8 @@
+# Sanctions test list (one name per line)
+Prime Estates
+Prime Estates Holdings
+
+# Additional sanctioned entities (sample)
+Orion Arms Trading
+Blackwater Syndicate
+Northern Star Shipping
