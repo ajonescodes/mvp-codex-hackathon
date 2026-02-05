@@ -55,9 +55,30 @@ h1 {
 }
 
 .subhead {
-  max-width: 520px;
+  max-width: 100%;
   font-size: 1.05rem;
   color: var(--muted);
+}
+
+.subhead.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: grid;
+  gap: 8px;
+}
+
+.subhead.bullets li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.subhead.bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
 }
 
 .card {

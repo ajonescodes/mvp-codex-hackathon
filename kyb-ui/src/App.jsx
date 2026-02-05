@@ -71,11 +71,12 @@ export default function App() {
       <header className="hero">
         <div>
           <p className="eyebrow">Commercial Lending Autopilot</p>
-          <h1>COMMERCIAL LENDING AUTOPILOT</h1>
-          <p className="subhead">
-            Fast, hassle-free pre-qualification for business lending—securely
-            upload your documents and get a clear decision summary.
-          </p>
+          <h1>Check Eligibility in 2 Minutes</h1>
+          <ul className="subhead bullets">
+            <li>Commercial credit simplified.</li>
+            <li>Multi‑department hand‑offs replaced by a parallel‑agent heartbeat.</li>
+            <li>What took 7 days is now under 2 minutes.</li>
+          </ul>
         </div>
       </header>
 
