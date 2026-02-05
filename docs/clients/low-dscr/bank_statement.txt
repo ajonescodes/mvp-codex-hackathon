@@ -1,2 +1,25 @@
+Transaction Stream Log
+Generated for testing. Format: id=..., amount=..., currency=..., source=...
+
 id=LB1001, amount=1800000, currency=USD, source=Private Equity Investment
 id=LB1002, amount=210000, currency=USD, source=Customer Payment
+id=TEST001, amount=5000, currency=USD, source=Customer Payment
+id=TEST002, amount=5250, currency=USD, source=Customer Payment
+id=TEST003, amount=5500, currency=USD, source=Customer Payment
+id=TEST004, amount=5750, currency=USD, source=Customer Payment
+id=TEST005, amount=6000, currency=USD, source=Customer Payment
+id=TEST006, amount=6250, currency=USD, source=Customer Payment
+id=TEST007, amount=6500, currency=USD, source=Customer Payment
+id=TEST008, amount=6750, currency=USD, source=Customer Payment
+id=TEST009, amount=7000, currency=USD, source=Customer Payment
+id=TEST010, amount=7250, currency=USD, source=Customer Payment
+id=TEST011, amount=7500, currency=USD, source=Customer Payment
+id=TEST012, amount=7750, currency=USD, source=Customer Payment
+id=TEST013, amount=8000, currency=USD, source=Customer Payment
+id=TEST014, amount=8250, currency=USD, source=Customer Payment
+id=TEST015, amount=8500, currency=USD, source=Customer Payment
+id=TEST016, amount=8750, currency=USD, source=Customer Payment
+id=TEST017, amount=9000, currency=USD, source=Customer Payment
+id=TEST018, amount=9250, currency=USD, source=Customer Payment
+id=TEST019, amount=9500, currency=USD, source=Customer Payment
+id=TEST020, amount=9750, currency=USD, source=Customer Payment

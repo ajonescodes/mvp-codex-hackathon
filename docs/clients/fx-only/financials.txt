@@ -5,3 +5,40 @@ Operating Expenses: $4,200,000
 Depreciation: $300,000
 Total Annual Debt Service: $950,000
 Proposed Loan Amount: $2,000,000
+
+Income Statement (Selected Lines)
+Revenue Breakdown:
+- Freight brokerage: $2,880,000
+- Warehousing: $1,920,000
+- Dedicated transport: $960,000
+- Value-added services: $640,000
+
+Operating Expense Detail:
+- Payroll and benefits: $1,344,000
+- Fuel and transport: $756,000
+- Rent and facilities: $420,000
+- Insurance: $168,000
+- Repairs and maintenance: $252,000
+- Technology and systems: $210,000
+- Professional fees: $126,000
+- Marketing and sales: $84,000
+- Utilities: $84,000
+- Other operating expenses: $756,000
+
+Quarterly Revenue Trend:
+- Q1: $1,472,000
+- Q2: $1,600,000
+- Q3: $1,664,000
+- Q4: $1,664,000
+
+Management Notes:
+- Revenue is driven by multi-year logistics contracts with mid-market shippers.
+- Seasonality typically peaks in Q3/Q4 due to retail inventory cycles.
+- Depreciation represents non-cash charges on fleet, material handling equipment, and leasehold improvements.
+- Debt service includes principal and interest on vehicle financing and term debt.
+
+Additional Disclosures:
+- Customer concentration: top 5 customers represent less than 35% of total revenue.
+- Days sales outstanding (DSO) averages 38-45 days.
+- The company maintains standard insurance coverage for cargo, liability, and property.
+- Capital expenditures primarily support fleet refresh and warehouse automation.

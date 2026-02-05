@@ -7,9 +7,42 @@ ENTITY TYPE: CORP
 BUSINESS SUMMARY
 Ironbridge Supply Co. distributes industrial parts nationwide.
 
-BENEFICIAL OWNERS
+REGISTERED OFFICE
+500 River Rd, Chicago, IL 60601
+
+REGISTERED AGENT
+Prairie Agents Inc., 77 Wacker Dr, Chicago, IL 60601
+
+PURPOSE
+The purpose of this company is to engage in lawful business activities, including but not limited to logistics, freight operations, and related services.
+
+MEMBERSHIP AND OWNERSHIP
 - Daniel Ruiz, President (55% Ownership)
 - Mia Nguyen, COO (30% Ownership)
 
-REGISTERED OFFICE
-500 River Rd, Chicago, IL 60601
+GOVERNING PROVISIONS
+Section 1. The undersigned hereby forms a limited liability company under applicable state law.
+Section 2. This document is executed for lawful business purposes and shall be interpreted accordingly.
+Section 3. The company may engage in any activity for which limited liability companies may be organized.
+Section 4. The registered agent is authorized to receive service of process on behalf of the company.
+Section 5. Membership interests are governed by the operating agreement and applicable statutes.
+Section 6. No member shall be personally liable for company obligations except as required by law.
+Section 7. This filing is effective upon acceptance by the Secretary of State.
+Section 8. The undersigned hereby forms a limited liability company under applicable state law.
+Section 9. This document is executed for lawful business purposes and shall be interpreted accordingly.
+Section 10. The company may engage in any activity for which limited liability companies may be organized.
+Section 11. The registered agent is authorized to receive service of process on behalf of the company.
+Section 12. Membership interests are governed by the operating agreement and applicable statutes.
+Section 13. No member shall be personally liable for company obligations except as required by law.
+Section 14. This filing is effective upon acceptance by the Secretary of State.
+Section 15. The undersigned hereby forms a limited liability company under applicable state law.
+Section 16. This document is executed for lawful business purposes and shall be interpreted accordingly.
+Section 17. The company may engage in any activity for which limited liability companies may be organized.
+Section 18. The registered agent is authorized to receive service of process on behalf of the company.
+
+ADDITIONAL STATEMENTS
+The company shall maintain proper books and records and shall comply with all applicable laws and regulations.
+The company may open bank accounts and enter into contracts necessary for operations.
+
+EFFECTIVE DATE
+February 3, 2018

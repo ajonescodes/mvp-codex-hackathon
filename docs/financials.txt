@@ -6,6 +6,39 @@ Depreciation: $250,000
 Total Annual Debt Service: $900,000
 Proposed Loan Amount: $1,500,000
 
-Notes:
-- Revenue reflects operations in the US and Europe.
-- Depreciation is primarily fleet and warehouse equipment.
+Income Statement (Selected Lines)
+Revenue Breakdown:
+- Freight brokerage: $2,250,000
+- Warehousing: $1,500,000
+- Dedicated transport: $750,000
+- Value-added services: $500,000
+
+Operating Expense Detail:
+- Payroll and benefits: $1,152,000
+- Fuel and transport: $648,000
+- Rent and facilities: $360,000
+- Insurance: $144,000
+- Repairs and maintenance: $216,000
+- Technology and systems: $180,000
+- Professional fees: $108,000
+- Marketing and sales: $72,000
+- Utilities: $72,000
+- Other operating expenses: $648,000
+
+Quarterly Revenue Trend:
+- Q1: $1,150,000
+- Q2: $1,250,000
+- Q3: $1,300,000
+- Q4: $1,300,000
+
+Management Notes:
+- Revenue is driven by multi-year logistics contracts with mid-market shippers.
+- Seasonality typically peaks in Q3/Q4 due to retail inventory cycles.
+- Depreciation represents non-cash charges on fleet, material handling equipment, and leasehold improvements.
+- Debt service includes principal and interest on vehicle financing and term debt.
+
+Additional Disclosures:
+- Customer concentration: top 5 customers represent less than 35% of total revenue.
+- Days sales outstanding (DSO) averages 38-45 days.
+- The company maintains standard insurance coverage for cargo, liability, and property.
+- Capital expenditures primarily support fleet refresh and warehouse automation.
