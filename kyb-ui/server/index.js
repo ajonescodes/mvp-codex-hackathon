@@ -6,9 +6,10 @@ import path from "node:path";
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const ROOT = path.resolve(process.cwd(), "..");
 const DATA_DIR = path.join(process.cwd(), "data");
 const DOSSIER_PATH = path.join(DATA_DIR, "company_dossier.json");
+const CREDIT_MEMO_PATH = path.join(DATA_DIR, "Credit_Memo.md");
+const SALES_BRIEF_PATH = path.join(DATA_DIR, "Sales_Brief.md");
 
 const ENTITY_NAME_RE = /\bENTITY\s+NAME\b\s*[:\-]\s*(.+)/i;
 const STATE_RE = /\bSTATE\s+OF\s+REGISTRATION\b\s*[:\-]\s*(.+)/i;
@@ -16,7 +17,44 @@ const ENTITY_HINT_RE =
   /\b([A-Z][A-Za-z0-9&.,'\- ]+\b(?:LLC|L\.L\.C\.|CORP|CORPORATION|INC|INC\.|LTD|L\.T\.D\.))\b/i;
 const PCT_RE = /(\d+(?:\.\d+)?)\s*%/;
 
+const FINANCIAL_FIELDS = {
+  gross_revenue: ["gross revenue", "revenue", "total revenue"],
+  operating_expenses: ["operating expenses", "opex", "operating expense"],
+  depreciation: ["depreciation"],
+  annual_debt_service: ["total annual debt service", "annual debt service", "debt service"],
+  proposed_loan_amount: ["proposed loan amount", "loan amount"]
+};
+
+const PROHIBITED_INDUSTRIES = {
+  cannabis: ["cannabis", "marijuana", "thc", "weed"],
+  weapons_firearms: ["weapon", "weapons", "firearm", "firearms", "ammo", "ammunition"],
+  gambling: ["gambling", "casino", "sportsbook", "betting"],
+  adult_entertainment: ["adult", "porn", "pornography", "sex", "escort"],
+  sanctioned_jurisdictions: ["sanctioned", "jurisdiction"]
+};
+
+const LIQUIDITY_KEYWORDS = ["investment", "vc", "venture", "private equity", "pe"];
+
 const stripBullets = (line) => line.replace(/^[\s\-*\u2022]+/, "").trim();
+
+const ensureDataDir = async () => {
+  await fs.mkdir(DATA_DIR, { recursive: true });
+};
+
+const loadDossier = async () => {
+  await ensureDataDir();
+  try {
+    const raw = await fs.readFile(DOSSIER_PATH, "utf-8");
+    return raw.trim() ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+};
+
+const writeDossier = async (dossier) => {
+  await ensureDataDir();
+  await fs.writeFile(DOSSIER_PATH, `${JSON.stringify(dossier, null, 2)}\n`, "utf-8");
+};
 
 const extractEntityName = (text) => {
   for (const line of text.split(/\r?\n/)) {
@@ -93,61 +131,361 @@ const updateField = (dossier, key, value, confidence) => {
   if (confidence === "explicit") dossier[key] = value;
 };
 
-app.post("/api/kyb", upload.single("file"), async (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).json({ error: "Missing file upload" });
-    }
+const normalizeName = (value) =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
-    const articlesText = req.file.buffer.toString("utf-8");
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    let dossierRaw = "{}";
-    try {
-      dossierRaw = await fs.readFile(DOSSIER_PATH, "utf-8");
-    } catch {
-      dossierRaw = "{}";
-    }
-    const dossier = dossierRaw.trim() ? JSON.parse(dossierRaw) : {};
+const splitName = (value) => {
+  const parts = normalizeName(value).split(" ");
+  if (!parts.length) return { first: "", last: "" };
+  return { first: parts[0], last: parts[parts.length - 1] };
+};
 
-    const entityName = extractEntityName(articlesText);
-    const state = extractState(articlesText);
-    const uboList = buildUboList(articlesText);
+const sanctionsMatch = (uboName, sanctionsName) => {
+  const uboNorm = normalizeName(uboName);
+  const sancNorm = normalizeName(sanctionsName);
+  if (!uboNorm || !sancNorm) return false;
+  if (uboNorm === sancNorm) return true;
+  if (uboNorm.includes(sancNorm) || sancNorm.includes(uboNorm)) return true;
 
-    updateField(dossier, "entity_name", entityName.value, entityName.confidence);
-    updateField(dossier, "state", state.value, state.confidence);
-    if (uboList.length) dossier.ubo_list = uboList;
+  const ubo = splitName(uboName);
+  const sanc = splitName(sanctionsName);
+  if (ubo.last && sanc.last && ubo.last === sanc.last) {
+    if (ubo.first && sanc.first && ubo.first[0] === sanc.first[0]) return true;
+  }
+  return false;
+};
 
-    const flags = Array.isArray(dossier.regulatory_flags) ? [...dossier.regulatory_flags] : [];
-    const missingFlags = [];
+const parseSanctionsList = (text) =>
+  text
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter((line) => line && !line.startsWith("#"));
 
-    if (!entityName.value) missingFlags.push("MISSING_ENTITY_NAME");
-    if (!state.value) missingFlags.push("MISSING_STATE");
-    if (!uboList.length) missingFlags.push("NO_UBO_OVER_25");
+const parseNumber = (value) => {
+  if (!value) return null;
+  const cleaned = value.replace(/,/g, "").replace(/\$/g, "").replace(/\s/g, "");
+  const match = cleaned.match(/-?\d+(?:\.\d+)?/);
+  if (!match) return null;
+  const num = Number(match[0]);
+  return Number.isNaN(num) ? null : num;
+};
 
-    if (missingFlags.length) {
-      dossier.kyb_status = "REJECTED";
-      for (const flag of missingFlags) {
-        if (!flags.includes(flag)) flags.push(flag);
+const extractField = (text, labels) => {
+  for (const line of text.split(/\r?\n/)) {
+    const lowered = line.toLowerCase();
+    for (const label of labels) {
+      if (lowered.includes(label)) {
+        const parts = line.split(/[:\-]/, 2);
+        if (parts.length > 1) return parseNumber(parts[1]);
+        return parseNumber(line);
       }
-    } else {
-      dossier.kyb_status = "APPROVED";
+    }
+  }
+  return null;
+};
+
+const formatMoney = (value) => {
+  if (value == null) return "Not provided";
+  return value === Math.trunc(value)
+    ? `$${value.toLocaleString("en-US", { maximumFractionDigits: 0 })}`
+    : `$${value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+};
+
+const formatRatio = (value) => (value == null ? "Not provided" : `${value.toFixed(2)}x`);
+
+const matchProhibitedIndustry = (businessType) => {
+  if (!businessType) return null;
+  const text = businessType.toLowerCase();
+  for (const [key, terms] of Object.entries(PROHIBITED_INDUSTRIES)) {
+    if (terms.some((term) => text.includes(term))) return key;
+  }
+  return null;
+};
+
+const parseTransactionLine = (line) => {
+  const data = { raw: line.trim() };
+  line.split(",").forEach((part) => {
+    if (part.includes("=")) {
+      const [key, value] = part.split("=", 2);
+      data[key.trim().toLowerCase()] = value.trim();
+    }
+  });
+  return data;
+};
+
+const detectSignals = (transactions) => {
+  const signals = [];
+  for (const tx of transactions) {
+    const amount = parseNumber(tx.amount || tx.transaction_amount);
+    const currency = (tx.currency || "").toUpperCase();
+    const source = (tx.source || "").toLowerCase();
+    const trigger = tx.id || tx.transaction_id || tx.raw;
+
+    if (amount != null && amount > 1_000_000) {
+      if (LIQUIDITY_KEYWORDS.some((keyword) => source.includes(keyword))) {
+        signals.push({
+          signal: "LIQUIDITY_EVENT",
+          recommended_product: "Liquidity Management / Sweep Account",
+          trigger_transaction: trigger,
+          confidence: "HIGH"
+        });
+      }
     }
 
-    dossier.regulatory_flags = flags;
+    if (currency && currency !== "USD") {
+      signals.push({
+        signal: "FX_EXPOSURE",
+        recommended_product: "FX Forward Contracts",
+        trigger_transaction: trigger,
+        confidence: "HIGH"
+      });
+    }
+  }
+  return signals;
+};
 
-    await fs.writeFile(DOSSIER_PATH, `${JSON.stringify(dossier, null, 2)}\n`, "utf-8");
+const buildCreditMemo = (dossier, financials, metrics) => {
+  const entity = dossier.entity_name || "Business";
+  const industry = dossier.industry || "Not specified";
+  const decision = dossier.credit_decision || "REVIEW";
 
-    return res.json({
-      ok: true,
-      log: `entity_name: ${entityName.value || "N/A"}\nstate: ${state.value || "N/A"}\nubos_over_25: ${uboList.length}\nkyb_status: ${dossier.kyb_status}`,
-      dossier
-    });
-  } catch (err) {
-    return res.status(500).json({ error: "Server error", detail: err?.message });
+  return `# Credit Memo\n\n## 1) Executive Summary\n${entity} is requesting commercial credit. Based on the provided financials, the preliminary decision is **${decision}**.\n\n## 2) Business Overview\n- Entity: ${entity}\n- Industry: ${industry}\n\n## 3) Financial Analysis\n- Gross Revenue: ${formatMoney(financials.gross_revenue)}\n- Operating Expenses: ${formatMoney(financials.operating_expenses)}\n- Depreciation (add-back): ${formatMoney(financials.depreciation)}\n- EBITDA: ${formatMoney(metrics.ebitda)}\n- Annual Debt Service: ${formatMoney(financials.annual_debt_service)}\n- DSCR: ${formatRatio(metrics.dscr)}\n\nDepreciation is treated as a non-cash expense and added back to operating earnings when calculating EBITDA.\n\n## 4) Strengths\n- Revenue scale supports ongoing operations (subject to verification).\n- Documented financial metrics available for spreading.\n\n## 5) Risks / Weaknesses\n- Financial inputs are limited to the provided document; additional statements may be required.\n- Debt service coverage should be monitored against policy thresholds.\n\n## 6) Credit Recommendation\n**Decision:** ${decision}\n\n**Suggested Covenant:** Maintain DSCR > 1.25x.\n`;
+};
+
+const buildSalesBrief = (dossier, signals) => {
+  const entity = dossier.entity_name || "Apex Logistics";
+  const signalTypes = [...new Set(signals.map((s) => s.signal))];
+  const products = [...new Set(signals.map((s) => s.recommended_product))];
+
+  const opportunitySummary = signalTypes.length
+    ? `Signals detected: ${signalTypes.join(", ")}.`
+    : "No signals detected.";
+
+  const productLines = products.length
+    ? products.map((product) => `- ${product}: improve cash visibility and risk management.`).join("\n")
+    : "- No product recommendations available.";
+
+  const emailBody = `Hi ${entity} Team,\n\nI wanted to share a few proactive ideas based on your recent transaction activity. We are seeing signals that suggest it may be a good time to tighten liquidity visibility and evaluate FX risk management tools. Our team can help you optimize cash positioning while reducing exposure from cross-currency activity.\n\nIf it would be helpful, I can arrange a short working session to review your cash flow cadence and discuss whether a sweep structure and/or forward contracts could add value right now.\n\nBest regards,\nSenior Banking Advisor\n`;
+
+  return `# Sales Brief\n\n## 1) Opportunity Summary\n- ${opportunitySummary}\n- Why it matters now: recent transaction patterns suggest active capital movement and cross-border exposure.\n\n## 2) Recommended Product(s)\n${productLines}\n\n## 3) Suggested Talking Points\n- Reference recent transaction activity for ${entity} without citing raw amounts.\n- Highlight how proactive treasury tools can stabilize cash flow.\n- Offer to review FX exposure and hedging options for cross-border activity.\n\n## 4) Personalized Email Draft\n${emailBody}\n`;
+};
+
+const appendFlags = (dossier, flags) => {
+  const existing = Array.isArray(dossier.regulatory_flags) ? dossier.regulatory_flags : [];
+  flags.forEach((flag) => {
+    if (!existing.includes(flag)) existing.push(flag);
+  });
+  dossier.regulatory_flags = existing;
+};
+
+const appendCrossSell = (dossier, opportunities) => {
+  const existing = Array.isArray(dossier.cross_sell_opportunities)
+    ? dossier.cross_sell_opportunities
+    : [];
+  opportunities.forEach((opp) => existing.push(opp));
+  dossier.cross_sell_opportunities = existing;
+};
+
+app.post(
+  "/api/autopilot",
+  upload.fields([
+    { name: "articles", maxCount: 1 },
+    { name: "financials", maxCount: 1 },
+    { name: "sanctions", maxCount: 1 },
+    { name: "transactions", maxCount: 1 }
+  ]),
+  async (req, res) => {
+    try {
+      const files = req.files || {};
+      const getFile = (name) => (files[name] && files[name][0] ? files[name][0] : null);
+
+      const articlesFile = getFile("articles");
+      const financialsFile = getFile("financials");
+      const sanctionsFile = getFile("sanctions");
+      const transactionsFile = getFile("transactions");
+
+      if (!articlesFile || !financialsFile || !sanctionsFile || !transactionsFile) {
+        return res.status(400).json({
+          error: "Missing required files",
+          detail: "Upload articles, financials, sanctions list, and transaction log."
+        });
+      }
+
+      const articlesText = articlesFile.buffer.toString("utf-8");
+      const financialsText = financialsFile.buffer.toString("utf-8");
+      const sanctionsText = sanctionsFile.buffer.toString("utf-8");
+      const transactionsText = transactionsFile.buffer.toString("utf-8");
+
+      const dossier = await loadDossier();
+
+      // KYB
+      const entityName = extractEntityName(articlesText);
+      const state = extractState(articlesText);
+      const uboList = buildUboList(articlesText);
+
+      updateField(dossier, "entity_name", entityName.value, entityName.confidence);
+      updateField(dossier, "state", state.value, state.confidence);
+      if (uboList.length) dossier.ubo_list = uboList;
+
+      const kybMissing = [];
+      if (!entityName.value) kybMissing.push("MISSING_ENTITY_NAME");
+      if (!state.value) kybMissing.push("MISSING_STATE");
+      if (!uboList.length) kybMissing.push("NO_UBO_OVER_25");
+      if (kybMissing.length) {
+        dossier.kyb_status = "REJECTED";
+        appendFlags(dossier, kybMissing);
+      } else {
+        dossier.kyb_status = "APPROVED";
+      }
+
+      // Compliance
+      const sanctionsList = parseSanctionsList(sanctionsText);
+      const sanctionsHits = [];
+      uboList.forEach((ubo) => {
+        if (!ubo?.name) return;
+        for (const sanc of sanctionsList) {
+          if (sanctionsMatch(ubo.name, sanc)) {
+            sanctionsHits.push({ ubo_name: ubo.name, matched_name: sanc });
+            break;
+          }
+        }
+      });
+
+      const issuesFound = [];
+      let criticalFound = false;
+
+      if (sanctionsHits.length) {
+        appendFlags(dossier, ["SANCTIONS_HIT"]);
+        issuesFound.push({ type: "SANCTIONS_HIT", matches: sanctionsHits });
+        criticalFound = true;
+      }
+
+      const businessType = dossier.business_type || dossier.industry || "";
+      const prohibitedMatch = matchProhibitedIndustry(businessType);
+      if (prohibitedMatch) {
+        appendFlags(dossier, ["PROHIBITED_INDUSTRY"]);
+        issuesFound.push({ type: "PROHIBITED_INDUSTRY", match: prohibitedMatch, value: businessType });
+        criticalFound = true;
+      }
+
+      if (criticalFound) {
+        appendFlags(dossier, ["CRITICAL"]);
+        dossier.credit_decision = "BLOCKED";
+      }
+
+      dossier.compliance_summary = {
+        sanctions_checked: true,
+        prohibited_industry_checked: true,
+        issues_found: issuesFound,
+        status: criticalFound ? "CRITICAL" : "CLEAR"
+      };
+
+      // Underwriting
+      const financials = {};
+      Object.entries(FINANCIAL_FIELDS).forEach(([key, labels]) => {
+        financials[key] = extractField(financialsText, labels);
+      });
+
+      const ebitda =
+        financials.gross_revenue != null &&
+        financials.operating_expenses != null &&
+        financials.depreciation != null
+          ? (financials.gross_revenue - financials.operating_expenses) + financials.depreciation
+          : null;
+
+      const dscr =
+        ebitda != null && financials.annual_debt_service
+          ? ebitda / financials.annual_debt_service
+          : null;
+
+      const financialsObj =
+        dossier.financials && typeof dossier.financials === "object"
+          ? dossier.financials
+          : {};
+
+      [
+        "gross_revenue",
+        "operating_expenses",
+        "depreciation",
+        "annual_debt_service",
+        "proposed_loan_amount"
+      ].forEach((key) => {
+        if (financials[key] != null) financialsObj[key] = financials[key];
+      });
+
+      if (ebitda != null) financialsObj.ebitda = ebitda;
+      if (dscr != null) financialsObj.dscr = dscr;
+
+      dossier.financials = financialsObj;
+
+      let decision = "REVIEW";
+      if (dscr != null) {
+        if (dscr > 1.25) decision = "APPROVE";
+        else if (dscr < 1.0) decision = "DECLINE";
+        else decision = "REVIEW";
+      }
+
+      if (criticalFound) {
+        dossier.credit_decision = "BLOCKED";
+      } else {
+        dossier.credit_decision = decision;
+      }
+
+      // Sales signals
+      const transactions = transactionsText
+        .split(/\r?\n/)
+        .filter((line) => line.trim())
+        .map((line) => parseTransactionLine(line));
+      const signals = detectSignals(transactions);
+      appendCrossSell(dossier, signals);
+
+      await writeDossier(dossier);
+      await fs.writeFile(CREDIT_MEMO_PATH, buildCreditMemo(dossier, financials, { ebitda, dscr }), "utf-8");
+      await fs.writeFile(SALES_BRIEF_PATH, buildSalesBrief(dossier, signals), "utf-8");
+
+      return res.json({
+        ok: true,
+        summary: {
+          kyb_status: dossier.kyb_status || "UNKNOWN",
+          compliance_status: dossier.compliance_summary.status,
+          credit_decision: dossier.credit_decision || "UNKNOWN",
+          cross_sell_count: Array.isArray(dossier.cross_sell_opportunities)
+            ? dossier.cross_sell_opportunities.length
+            : 0
+        },
+        opportunities: signals,
+        artifacts: {
+          dossier: "/api/artifacts/company_dossier.json",
+          credit_memo: "/api/artifacts/Credit_Memo.md",
+          sales_brief: "/api/artifacts/Sales_Brief.md"
+        }
+      });
+    } catch (err) {
+      return res.status(500).json({ error: "Server error", detail: err?.message });
+    }
+  }
+);
+
+app.get("/api/artifacts/:name", async (req, res) => {
+  const allowed = new Set(["company_dossier.json", "Credit_Memo.md", "Sales_Brief.md"]);
+  const name = req.params.name;
+  if (!allowed.has(name)) {
+    return res.status(404).json({ error: "Not found" });
+  }
+  const filePath = path.join(DATA_DIR, name);
+  try {
+    await fs.access(filePath);
+    return res.sendFile(filePath);
+  } catch {
+    return res.status(404).json({ error: "Not found" });
   }
 });
 
 const PORT = process.env.PORT || 5174;
 app.listen(PORT, () => {
-  console.log(`KYB server listening on ${PORT}`);
+  console.log(`Autopilot server listening on ${PORT}`);
 });

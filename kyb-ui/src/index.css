@@ -285,3 +285,39 @@ h1 {
     flex-direction: column;
   }
 }
+
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.file-card {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  border: 1px dashed var(--line);
+  background: #fffdfa;
+}
+
+.file-card input[type="file"] {
+  width: 100%;
+}
+
+.file-name {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.download-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.opportunity-list {
+  display: grid;
+  gap: 12px;
+}
