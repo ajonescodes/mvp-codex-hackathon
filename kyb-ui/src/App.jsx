@@ -71,7 +71,7 @@ export default function App() {
       <header className="hero">
         <div>
           <p className="eyebrow">Commercial Lending Autopilot</p>
-          <h1>Check Eligibility in 60 Seconds</h1>
+          <h1>COMMERCIAL LENDING AUTOPILOT</h1>
           <p className="subhead">
             Fast, hassle-free pre-qualification for business lending—securely
             upload your documents and get a clear decision summary.
@@ -113,17 +113,17 @@ export default function App() {
             <div className="file-grid">
               <label className="file-card">
                 <span className="label">Articles of Incorporation</span>
-                <input type="file" accept=".txt" onChange={handleFileChange("articles")} />
+                <input type="file" accept=".txt,.doc,.docx" onChange={handleFileChange("articles")} />
                 <span className="file-name">{files.articles?.name || "TXT file"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Financials</span>
-                <input type="file" accept=".txt" onChange={handleFileChange("financials")} />
+                <input type="file" accept=".txt,.xls,.xlsx,.csv" onChange={handleFileChange("financials")} />
                 <span className="file-name">{files.financials?.name || "TXT file"}</span>
               </label>
               <label className="file-card">
                 <span className="label">Bank statement</span>
-                <input type="file" accept=".log,.txt" onChange={handleFileChange("transactions")} />
+                <input type="file" accept=".log,.txt,.csv,.xls,.xlsx" onChange={handleFileChange("transactions")} />
                 <span className="file-name">{files.transactions?.name || "LOG/TXT file"}</span>
               </label>
             </div>
