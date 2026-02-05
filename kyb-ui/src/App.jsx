@@ -64,6 +64,7 @@ export default function App() {
   };
 
   const summary = result?.summary;
+  const riskScore = summary?.risk_score;
   const opportunities = result?.opportunities || [];
   const artifacts = result?.artifacts || {};
 
@@ -151,10 +152,35 @@ export default function App() {
                 <span className="label">Cross-sell signals</span>
                 <p>{summary.cross_sell_count}</p>
               </div>
+              <div>
+                <span className="label">Risk score</span>
+                <p
+                  className={
+                    riskScore?.level === "HIGH"
+                      ? "warn"
+                      : riskScore?.level === "MEDIUM"
+                      ? "risk-medium"
+                      : "ok"
+                  }
+                >
+                  {riskScore?.level || "Pending"}
+                </p>
+              </div>
             </div>
           ) : (
             <p className="empty">Upload your documents and click Run to see results.</p>
           )}
+
+          {summary && riskScore?.reasons?.length ? (
+            <div className="risk-reasons">
+              <p className="label">Risk drivers</p>
+              <ul>
+                {riskScore.reasons.map((reason, index) => (
+                  <li key={`${reason}-${index}`}>{reason}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
 
           <div className="opportunity-list">
             <p className="label">Opportunities we identified</p>

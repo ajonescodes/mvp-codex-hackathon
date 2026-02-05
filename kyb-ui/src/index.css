@@ -334,3 +334,18 @@ h1 {
   border: 1px solid var(--line);
   background: #fffaf4;
 }
+
+.risk-medium {
+  color: #8a5a00;
+}
+
+.risk-reasons {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.risk-reasons ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--muted);
+}

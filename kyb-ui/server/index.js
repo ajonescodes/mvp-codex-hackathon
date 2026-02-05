@@ -434,6 +434,29 @@ app.post(
         dossier.credit_decision = decision;
       }
 
+      // Risk score
+      const riskReasons = [];
+      if (kybMissing.length) {
+        riskReasons.push("Incomplete ownership or entity data.");
+      }
+      if (criticalFound) {
+        riskReasons.push("Compliance screening flagged a critical issue.");
+      }
+      if (dscr == null) {
+        riskReasons.push("Debt service coverage ratio could not be calculated.");
+      } else if (dscr < 1.0) {
+        riskReasons.push("Debt service coverage ratio is below 1.0x.");
+      } else if (dscr < 1.25) {
+        riskReasons.push("Debt service coverage ratio is below 1.25x.");
+      }
+
+      let riskLevel = "LOW";
+      if (criticalFound || (dscr != null && dscr < 1.0) || kybMissing.length) {
+        riskLevel = "HIGH";
+      } else if (dscr == null || (dscr != null && dscr < 1.25)) {
+        riskLevel = "MEDIUM";
+      }
+
       // Sales signals
       const transactions = transactionsText
         .split(/\r?\n/)
@@ -454,7 +477,11 @@ app.post(
           credit_decision: dossier.credit_decision || "UNKNOWN",
           cross_sell_count: Array.isArray(dossier.cross_sell_opportunities)
             ? dossier.cross_sell_opportunities.length
-            : 0
+            : 0,
+          risk_score: {
+            level: riskLevel,
+            reasons: riskReasons
+          }
         },
         opportunities: signals,
         artifacts: {
