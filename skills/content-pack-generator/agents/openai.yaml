@@ -1,0 +1,4 @@
+interface:
+  display_name: "Content Pack Generator"
+  short_description: "SEO + GEO content pack creation"
+  default_prompt: "Use $content-pack-generator to generate a full SEO and GEO-ready content pack from a topic with metadata, draft, CTAs, links, FAQs, JSON-LD, image plan, and quality feedback."
