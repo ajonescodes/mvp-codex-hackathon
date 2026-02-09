@@ -25,6 +25,12 @@ Interaction order rules:
 
 1. Ask for Topic first and wait.
 2. After topic is provided, ask items 2-6 one by one, in order, waiting for each answer before asking the next.
+   - For item 2, ask using fixed choices and letter selection:
+     - `a) banks`
+     - `b) fintechs`
+     - `c) NBFCs`
+   - Allow single or multiple selections (for example: `a` or `a,c`).
+   - If letters are provided, convert to audience labels in the final output.
 3. Accept skip responses such as "skip", "n/a", or blank-style responses for optional fields.
 4. After item 6, ask items 7 and 8.
 5. If any optional field is missing, proceed with practical defaults and note inferred assumptions in the output.
